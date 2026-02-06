@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+Sitemap: https://24qme.ru/sitemap.xml
+Disallow: /admin/
+Disallow: /private/
+
+# Скорость сканирования (опционально)
+Crawl-delay: 1
+
+# Для поисковых систем
+User-agent: Googlebot
+Allow: /
+Disallow: /admin/
+
+User-agent: YandexBot
+Allow: /
+Disallow: /admin/
+
+User-agent: Bingbot
+Allow: /
+Disallow: /admin/
