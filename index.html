@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Telegram Style</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --tg-bg: #0e1621;
+            --tg-secondary-bg: #17212b;
+            --tg-chat-bg: #212d3a;
+            --tg-message-bg: #182533;
+            --tg-accent: #5288c1;
+            --tg-accent-hover: #6ca0d8;
+            --tg-text-primary: #ffffff;
+            --tg-text-secondary: #8b98a5;
+            --tg-divider: #2b3943;
+            --tg-online: #00c853;
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--tg-bg);
+            color: var(--tg-text-primary);
+            overflow-x: hidden;
+        }
+
+        /* Анимированный фон с частицами */
+        .particles-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--tg-accent);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Иконки Telegram */
+        .telegram-icon {
+            position: absolute;
+            font-size: 24px;
+            opacity: 0.1;
+            animation: floatIcon linear infinite;
+        }
+
+        @keyframes floatIcon {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.1;
+            }
+            90% {
+                opacity: 0.1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(180deg);
+                opacity: 0;
+            }
+        }
+
+        /* Основной контейнер */
+        .telegram-container {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            height: 100vh;
+            max-width: 1400px;
+            margin: 0 auto;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Боковая панель с чатами */
+        .sidebar {
+            width: 420px;
+            background: var(--tg-secondary-bg);
+            border-right: 1px solid var(--tg-divider);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            background: var(--tg-secondary-bg);
+            border-bottom: 1px solid var(--tg-divider);
+        }
+
+        .sidebar-header h1 {
+            font-size: 22px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            opacity: 0;
+            animation: fadeInDown 0.6s ease forwards;
+        }
+
+        .sidebar-header p {
+            font-size: 14px;
+            color: var(--tg-text-secondary);
+            opacity: 0;
+            animation: fadeInDown 0.6s ease 0.1s forwards;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Поиск */
+        .search-box {
+            padding: 10px 20px;
+            background: var(--tg-secondary-bg);
+            border-bottom: 1px solid var(--tg-divider);
+            opacity: 0;
+            animation: fadeIn 0.6s ease 0.2s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 15px;
+            background: var(--tg-message-bg);
+            border: none;
+            border-radius: 20px;
+            color: var(--tg-text-primary);
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            background: var(--tg-chat-bg);
+            box-shadow: 0 0 0 2px var(--tg-accent);
+        }
+
+        /* Список чатов */
+        .chats-list {
+            flex: 1;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--tg-accent) var(--tg-secondary-bg);
+        }
+
+        .chats-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chats-list::-webkit-scrollbar-track {
+            background: var(--tg-secondary-bg);
+        }
+
+        .chats-list::-webkit-scrollbar-thumb {
+            background: var(--tg-accent);
+            border-radius: 3px;
+        }
+
+        .chat-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--tg-divider);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: slideInLeft 0.5s ease forwards;
+        }
+
+        .chat-item:nth-child(1) { animation-delay: 0.3s; }
+        .chat-item:nth-child(2) { animation-delay: 0.4s; }
+        .chat-item:nth-child(3) { animation-delay: 0.5s; }
+        .chat-item:nth-child(4) { animation-delay: 0.6s; }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .chat-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0;
+            background: var(--tg-accent);
+            opacity: 0.1;
+            transition: width 0.3s ease;
+        }
+
+        .chat-item:hover::before {
+            width: 100%;
+        }
+
+        .chat-item:hover {
+            background: var(--tg-chat-bg);
+        }
+
+        .chat-item.active {
+            background: var(--tg-chat-bg);
+        }
+
+        .chat-item.active::before {
+            width: 4px;
+            opacity: 1;
+        }
+
+        .chat-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--tg-accent), #7ab4e8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+            overflow: hidden;
+        }
+
+        .chat-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .chat-item:hover .chat-avatar {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .chat-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .chat-name {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chat-badge {
+            font-size: 11px;
+            padding: 2px 6px;
+            background: var(--tg-accent);
+            border-radius: 10px;
+            font-weight: 500;
+        }
+
+        .chat-preview {
+            font-size: 14px;
+            color: var(--tg-text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chat-meta {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 5px;
+        }
+
+        .chat-time {
+            font-size: 12px;
+            color: var(--tg-text-secondary);
+        }
+
+        .online-indicator {
+            width: 10px;
+            height: 10px;
+            background: var(--tg-online);
+            border-radius: 50%;
+            border: 2px solid var(--tg-secondary-bg);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(0.9); }
+        }
+
+        /* Кнопка меню для мобильных */
+        .mobile-menu-btn {
+            display: none;
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 100;
+            width: 40px;
+            height: 40px;
+            background: var(--tg-accent);
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-btn:hover {
+            background: var(--tg-accent-hover);
+            transform: scale(1.1);
+        }
+
+        .menu-icon {
+            font-size: 24px;
+            color: white;
+        }
+
+        /* Оверлей для мобильного меню */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 98;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        /* Основная область контента */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--tg-chat-bg);
+        }
+
+        .content-header {
+            padding: 15px 25px;
+            background: var(--tg-secondary-bg);
+            border-bottom: 1px solid var(--tg-divider);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            opacity: 0;
+            animation: fadeInDown 0.6s ease 0.3s forwards;
+        }
+
+        .content-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--tg-accent), #7ab4e8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            overflow: hidden;
+        }
+
+        .content-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .content-info h2 {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+
+        .content-status {
+            font-size: 13px;
+            color: var(--tg-text-secondary);
+        }
+
+        /* Область сообщений */
+        .messages-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 25px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--tg-accent) var(--tg-chat-bg);
+        }
+
+        .messages-area::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .messages-area::-webkit-scrollbar-track {
+            background: var(--tg-chat-bg);
+        }
+
+        .messages-area::-webkit-scrollbar-thumb {
+            background: var(--tg-accent);
+            border-radius: 3px;
+        }
+
+        /* Карточка проекта */
+        .project-card {
+            background: var(--tg-message-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .project-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 0;
+            background: var(--tg-accent);
+            transition: height 0.4s ease;
+        }
+
+        .project-card:hover::before {
+            height: 100%;
+        }
+
+        .project-card:hover {
+            background: var(--tg-secondary-bg);
+            transform: translateX(10px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .project-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--tg-accent), #7ab4e8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover .project-icon {
+            transform: rotate(10deg) scale(1.1);
+        }
+
+        .project-title {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .project-type {
+            font-size: 13px;
+            color: var(--tg-text-secondary);
+        }
+
+        .project-description {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--tg-text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .tag {
+            padding: 5px 12px;
+            background: var(--tg-chat-bg);
+            border-radius: 12px;
+            font-size: 12px;
+            color: var(--tg-accent);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover .tag {
+            background: var(--tg-accent);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: var(--tg-accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            background: var(--tg-accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(82, 136, 193, 0.4);
+        }
+
+        /* Секция "О себе" */
+        .about-section {
+            background: var(--tg-message-bg);
+            border-radius: 12px;
+            padding: 25px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .about-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.6s ease;
+        }
+
+        .about-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .about-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--tg-accent), #7ab4e8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            overflow: hidden;
+        }
+
+        .about-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .about-name h3 {
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .about-role {
+            font-size: 16px;
+            color: var(--tg-text-secondary);
+        }
+
+        .about-text {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--tg-text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .skill-item {
+            padding: 12px;
+            background: var(--tg-chat-bg);
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .skill-item:hover {
+            background: var(--tg-accent);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: flex;
+            }
+            
+            .sidebar {
+                position: fixed;
+                left: -100%;
+                top: 0;
+                z-index: 99;
+                width: 100%;
+                max-width: 350px;
+                height: 100vh;
+                transition: left 0.3s ease;
+            }
+            
+            .sidebar.active {
+                left: 0;
+                box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+            }
+            
+            .content-header {
+                padding-left: 60px;
+            }
+            
+            .sidebar-overlay.active {
+                display: block;
+            }
+            
+            .telegram-container {
+                max-width: 100%;
+                height: 100vh;
+            }
+            
+            /* Улучшаем отображение карточек на мобильных */
+            .project-card {
+                padding: 15px;
+                margin-bottom: 10px;
+            }
+            
+            .project-header {
+                gap: 10px;
+            }
+            
+            .project-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+            
+            .project-title {
+                font-size: 16px;
+            }
+            
+            .project-description {
+                font-size: 13px;
+            }
+            
+            /* Улучшаем секцию "О себе" */
+            .about-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .about-avatar {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            /* Улучшаем кнопки контактов */
+            .project-link {
+                padding: 8px 15px;
+                font-size: 13px;
+                margin-bottom: 5px;
+            }
+        }
+
+        /* Скрыть секции по умолчанию */
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Анимированный фон -->
+    <div class="particles-background" id="particlesBackground"></div>
+
+    <!-- Основной контейнер -->
+    <div class="telegram-container">
+        <!-- Боковая панель -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h1>Портфолио</h1>
+                <p>Разработчик Telegram</p>
+            </div>
+
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Поиск проектов...">
+            </div>
+
+            <div class="chats-list">
+                <div class="chat-item active" data-chat="bots">
+                    <div class="chat-avatar">🤖</div>
+                    <div class="chat-info">
+                        <div class="chat-name">
+                            Telegram Боты
+                            <span class="chat-badge">5</span>
+                        </div>
+                        <div class="chat-preview">Автоматизация и AI решения</div>
+                    </div>
+                    <div class="chat-meta">
+                        <div class="chat-time">Сегодня</div>
+                        <div class="online-indicator"></div>
+                    </div>
+                </div>
+
+                <div class="chat-item" data-chat="miniapps">
+                    <div class="chat-avatar">⚡</div>
+                    <div class="chat-info">
+                        <div class="chat-name">
+                            Mini Apps
+                            <span class="chat-badge">3</span>
+                        </div>
+                        <div class="chat-preview">Веб-приложения в Telegram</div>
+                    </div>
+                    <div class="chat-meta">
+                        <div class="chat-time">Вчера</div>
+                    </div>
+                </div>
+
+                <div class="chat-item" data-chat="websites">
+                    <div class="chat-avatar">🌐</div>
+                    <div class="chat-info">
+                        <div class="chat-name">
+                            Веб-сайты
+                            <span class="chat-badge">8</span>
+                        </div>
+                        <div class="chat-preview">Лендинги и корпоративные сайты</div>
+                    </div>
+                    <div class="chat-meta">
+                        <div class="chat-time">2 дн. назад</div>
+                    </div>
+                </div>
+
+                <div class="chat-item" data-chat="about">
+                    <div class="chat-avatar">
+                        <img src="avatar.jpg" alt="Avatar" class="avatar-photo">
+                    </div>
+                    <div class="chat-info">
+                        <div class="chat-name">О себе</div>
+                        <div class="chat-preview">Навыки и контакты</div>
+                    </div>
+                    <div class="chat-meta">
+                        <div class="chat-time">Онлайн</div>
+                        <div class="online-indicator"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Основной контент -->
+        <div class="main-content">
+            <!-- Кнопка меню для мобильных -->
+            <div class="mobile-menu-btn">
+                <div class="menu-icon">☰</div>
+            </div>
+            
+            <!-- Оверлей для закрытия меню -->
+            <div class="sidebar-overlay"></div>
+
+            <div class="content-header">
+                <div class="content-avatar" id="contentAvatar">🤖</div>
+                <div class="content-info">
+                    <h2 id="contentTitle">Telegram Боты</h2>
+                    <div class="content-status" id="contentStatus">5 проектов • активно разрабатывается</div>
+                </div>
+            </div>
+
+            <div class="messages-area">
+                <!-- Секция: Боты -->
+                <div class="content-section active" id="section-bots">
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="project-icon">🎯</div>
+                            <div>
+                                <div class="project-title">AI Ассистент</div>
+                                <div class="project-type">Telegram Bot</div>
+                            </div>
+                        </div>
+                        <div class="project-description">
+                            Интеллектуальный бот с интеграцией GPT-4 для автоматизации ответов, генерации контента и анализа данных. Поддержка голосовых сообщений и изображений.
+                        </div>
+                        <div class="project-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">aiogram</span>
+                            <span class="tag">OpenAI API</span>
+                            <span class="tag">PostgreSQL</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            Открыть бота →
+                        </a>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="project-icon">📊</div>
+                            <div>
+                                <div class="project-title">Аналитика подписок</div>
+                                <div class="project-type">Telegram Bot</div>
+                            </div>
+                        </div>
+                        <div class="project-description">
+                            Бот для мониторинга статистики Telegram-каналов: рост подписчиков, вовлечённость, лучшие посты. Автоматические отчёты и графики.
+                        </div>
+                        <div class="project-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Telethon</span>
+                            <span class="tag">Charts.js</span>
+                            <span class="tag">Redis</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            Открыть бота →
+                        </a>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="project-icon">🛒</div>
+                            <div>
+                                <div class="project-title">Магазин в Telegram</div>
+                                <div class="project-type">Telegram Bot</div>
+                            </div>
+                        </div>
+                        <div class="project-description">
+                            Полнофункциональный интернет-магазин с каталогом, корзиной, оплатой через Telegram Payments и системой управления заказами.
+                        </div>
+                        <div class="project-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">aiogram</span>
+                            <span class="tag">SQLite</span>
+                            <span class="tag">Payments API</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            Открыть бота →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Секция: Mini Apps -->
+                <div class="content-section" id="section-miniapps">
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="project-icon">🎮</div>
+                            <div>
+                                <div class="project-title">Игра "Викторина"</div>
+                                <div class="project-type">Telegram Mini App</div>
+                            </div>
+                        </div>
+                        <div class="project-description">
+                            Интерактивная викторина с таблицей лидеров, ежедневными вопросами и наградами. Полная интеграция с Telegram Web App API.
+                        </div>
+                        <div class="project-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">TypeScript</span>
+                            <span class="tag">Telegram WebApp</span>
+                            <span class="tag">Firebase</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            Запустить →
+                        </a>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="project-icon">📝</div>
+                            <div>
+                                <div class="project-title">Планировщик задач</div>
+                                <div class="project-type">Telegram Mini App</div>
+                            </div>
+                        </div>
+                        <div class="project-description">
+                            Mini App для управления задачами с календарём, напоминаниями и синхронизацией между устройствами через Telegram Cloud Storage.
+                        </div>
+                        <div class="project-tags">
+                            <span class="tag">Vue.js</span>
+                            <span class="tag">Vite</span>
+                            <span class="tag">Cloud Storage</span>
+                            <span class="tag">PWA</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            Запустить →
+                        </a>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="project-icon">💰</div>
+                            <div>
+                                <div class="project-title">Крипто-кошелёк</div>
+                                <div class="project-type">Telegram Mini App</div>
+                            </div>
+                        </div>
+                        <div class="project-description">
+                            Кошелёк для управления криптовалютой с отслеживанием курсов, историей транзакций и встроенным обменником.
+                        </div>
+                        <div class="project-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">Web3.js</span>
+                            <span class="tag">TON</span>
+                            <span class="tag">Tailwind</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            Запустить →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Секция: Веб-сайты -->
+                <div class="content-section" id="section-websites">
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="project-icon">🏢</div>
+                            <div>
+                                <div class="project-title">Корпоративный сайт</div>
+                                <div class="project-type">Website</div>
+                            </div>
+                        </div>
+                        <div class="project-description">
+                            Многостраничный сайт для IT-компании с адаптивным дизайном, анимациями и интеграцией с CRM-системой.
+                        </div>
+                        <div class="project-tags">
+                            <span class="tag">Next.js</span>
+                            <span class="tag">React</span>
+                            <span class="tag">GSAP</span>
+                            <span class="tag">Tailwind CSS</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            Посмотреть →
+                        </a>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="project-icon">🛍️</div>
+                            <div>
+                                <div class="project-title">E-commerce платформа</div>
+                                <div class="project-type">Website</div>
+                            </div>
+                        </div>
+                        <div class="project-description">
+                            Интернет-магазин с каталогом товаров, фильтрами, корзиной, личным кабинетом и интеграцией платёжных систем.
+                        </div>
+                        <div class="project-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">Node.js</span>
+                            <span class="tag">MongoDB</span>
+                            <span class="tag">Stripe</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            Посмотреть →
+                        </a>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="project-icon">🎨</div>
+                            <div>
+                                <div class="project-title">Портфолио дизайнера</div>
+                                <div class="project-type">Website</div>
+                            </div>
+                        </div>
+                        <div class="project-description">
+                            Креативное портфолио с галереей работ, плавными переходами, параллакс-эффектами и тёмной темой.
+                        </div>
+                        <div class="project-tags">
+                            <span class="tag">HTML/CSS</span>
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">Three.js</span>
+                            <span class="tag">GSAP</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            Посмотреть →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Секция: О себе -->
+                <div class="content-section" id="section-about">
+                    <div class="about-section">
+                        <div class="about-header">
+                            <div class="about-avatar">
+                                <img src="avatar.jpg" alt="Avatar" class="avatar-photo">
+                            </div>
+                            <div class="about-name">
+                                <h3>Марвин Дмитрий</h3>
+                                <div class="about-role">Telegram Developer & Web Designer</div>
+                            </div>
+                        </div>
+                        <div class="about-text">
+                            Привет! Я специализируюсь на разработке Telegram-ботов, Mini Apps и современных веб-сайтов. 
+                            Создаю удобные и красивые решения для автоматизации бизнеса, интеграции AI и повышения вовлечённости пользователей.
+                        </div>
+                        <div class="about-text">
+                            <strong>Технологии:</strong> Python (aiogram, Telethon), JavaScript/TypeScript (React, Vue, Next.js), 
+                            Node.js, PostgreSQL, MongoDB, Redis, Docker, Git.
+                        </div>
+                        <div class="skills-grid">
+                            <div class="skill-item">🤖 Telegram Bots</div>
+                            <div class="skill-item">⚡ Mini Apps</div>
+                            <div class="skill-item">🌐 Web Development</div>
+                            <div class="skill-item">🎨 UI/UX Design</div>
+                            <div class="skill-item">🤖 AI Integration</div>
+                            <div class="skill-item">💾 Database Design</div>
+                        </div>
+                        <div style="margin-top: 25px;">
+                            <a href="https://t.me/yourusername" class="project-link" style="margin-right: 10px;">
+                                📱 Telegram
+                            </a>
+                            <a href="https://github.com/dmitrybabs" class="project-link" style="margin-right: 10px;">
+                                💻 GitHub
+                            </a>
+                            <a href="tel:+79944178040" class="project-link">
+                                📞 +7 (994) 417-80-40
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Создание частиц фона
+        function createParticles() {
+            const container = document.getElementById('particlesBackground');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(particle);
+            }
+
+            // Добавление иконок Telegram
+            const icons = ['✈️', '📱', '💬', '🔔', '📎', '🎵'];
+            for (let i = 0; i < 15; i++) {
+                const icon = document.createElement('div');
+                icon.className = 'telegram-icon';
+                icon.textContent = icons[Math.floor(Math.random() * icons.length)];
+                icon.style.left = Math.random() * 100 + '%';
+                icon.style.animationDuration = (Math.random() * 15 + 20) + 's';
+                icon.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(icon);
+            }
+        }
+
+        // Переключение между чатами
+        function setupChatNavigation() {
+            const chatItems = document.querySelectorAll('.chat-item');
+            const sections = document.querySelectorAll('.content-section');
+            const contentAvatar = document.getElementById('contentAvatar');
+            const contentTitle = document.getElementById('contentTitle');
+            const contentStatus = document.getElementById('contentStatus');
+
+            const chatData = {
+                'bots': {
+                    avatar: '🤖',
+                    title: 'Telegram Боты',
+                    status: '5 проектов • активно разрабатывается',
+                    isEmoji: true
+                },
+                'miniapps': {
+                    avatar: '⚡',
+                    title: 'Mini Apps',
+                    status: '3 проекта • веб-приложения в Telegram',
+                    isEmoji: true
+                },
+                'websites': {
+                    avatar: '🌐',
+                    title: 'Веб-сайты',
+                    status: '8 проектов • лендинги и корпоративные сайты',
+                    isEmoji: true
+                },
+                'about': {
+                    avatar: 'avatar.jpg',
+                    title: 'О себе',
+                    status: 'навыки и контакты',
+                    isEmoji: false
+                }
+            };
+
+            chatItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const chatId = item.dataset.chat;
+
+                    // Обновление активного чата
+                    chatItems.forEach(chat => chat.classList.remove('active'));
+                    item.classList.add('active');
+
+                    // Обновление заголовка
+                    const data = chatData[chatId];
+                    
+                    // Обновляем аватар в зависимости от типа
+                    if (data.isEmoji) {
+                        contentAvatar.innerHTML = data.avatar;
+                    } else {
+                        contentAvatar.innerHTML = `<img src="${data.avatar}" alt="Avatar" class="avatar-photo">`;
+                    }
+                    
+                    contentTitle.textContent = data.title;
+                    contentStatus.textContent = data.status;
+
+                    // Переключение секций с анимацией
+                    sections.forEach(section => {
+                        section.classList.remove('active');
+                    });
+
+                    setTimeout(() => {
+                        document.getElementById(`section-${chatId}`).classList.add('active');
+                        observeProjects();
+                    }, 150);
+                });
+            });
+        }
+
+        // Анимация появления карточек при скролле
+        function observeProjects() {
+            const cards = document.querySelectorAll('.project-card, .about-section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, index * 100);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            cards.forEach(card => {
+                card.classList.remove('visible');
+                observer.observe(card);
+            });
+        }
+
+        // Поиск
+        function setupSearch() {
+            const searchInput = document.querySelector('.search-input');
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+                const cards = document.querySelectorAll('.project-card');
+
+                cards.forEach(card => {
+                    const title = card.querySelector('.project-title').textContent.toLowerCase();
+                    const description = card.querySelector('.project-description').textContent.toLowerCase();
+                    
+                    if (title.includes(query) || description.includes(query)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // Мобильное меню
+        function setupMobileMenu() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+            const chatItems = document.querySelectorAll('.chat-item');
+            
+            if (mobileMenuBtn && sidebar) {
+                // Открытие/закрытие меню
+                mobileMenuBtn.addEventListener('click', () => {
+                    sidebar.classList.add('active');
+                    overlay.classList.add('active');
+                });
+                
+                // Закрытие меню по клику на оверлей
+                overlay.addEventListener('click', () => {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                });
+                
+                // Закрытие меню при выборе чата на мобильных
+                chatItems.forEach(item => {
+                    item.addEventListener('click', () => {
+                        if (window.innerWidth <= 768) {
+                            sidebar.classList.remove('active');
+                            overlay.classList.remove('active');
+                        }
+                    });
+                });
+                
+                // Закрытие меню при ресайзе окна
+                window.addEventListener('resize', () => {
+                    if (window.innerWidth > 768) {
+                        sidebar.classList.remove('active');
+                        overlay.classList.remove('active');
+                    }
+                });
+            }
+        }
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            setupChatNavigation();
+            setupSearch();
+            observeProjects();
+            setupMobileMenu();
+        });
+    </script>
+</body>
+</html>
