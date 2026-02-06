@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Telegram Style</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* ... все стили остаются без изменений ... */
+    </style>
+</head>
+<body>
+    <!-- ... анимированный фон ... -->
+
+    <div class="telegram-container">
+        <!-- Боковая панель -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h1>Портфолио</h1>
+                <p>Разработчик Telegram</p>
+            </div>
+
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Поиск проектов...">
+            </div>
+
+            <div class="chats-list">
+                <div class="chat-item active" data-chat="bots">
+                    <div class="chat-avatar">🤖</div>
+                    <div class="chat-info">
+                        <div class="chat-name">
+                            Telegram Боты
+                            <span class="chat-badge">5</span>
+                        </div>
+                        <div class="chat-preview">Автоматизация и AI решения</div>
+                    </div>
+                    <div class="chat-meta">
+                        <div class="chat-time">Сегодня</div>
+                        <div class="online-indicator"></div>
+                    </div>
+                </div>
+
+                <div class="chat-item" data-chat="miniapps">
+                    <div class="chat-avatar">⚡</div>
+                    <div class="chat-info">
+                        <div class="chat-name">
+                            Mini Apps
+                            <span class="chat-badge">3</span>
+                        </div>
+                        <div class="chat-preview">Веб-приложения в Telegram</div>
+                    </div>
+                    <div class="chat-meta">
+                        <div class="chat-time">Вчера</div>
+                    </div>
+                </div>
+
+                <div class="chat-item" data-chat="websites">
+                    <div class="chat-avatar">🌐</div>
+                    <div class="chat-info">
+                        <div class="chat-name">
+                            Веб-сайты
+                            <span class="chat-badge">8</span>
+                        </div>
+                        <div class="chat-preview">Лендинги и корпоративные сайты</div>
+                    </div>
+                    <div class="chat-meta">
+                        <div class="chat-time">2 дн. назад</div>
+                    </div>
+                </div>
+
+                <div class="chat-item" data-chat="about">
+                    <div class="chat-avatar">
+                        <img src="https://raw.githubusercontent.com/dmitrybabs/telegram-portfolio/main/avatar.jpg" alt="Avatar" class="avatar-photo">
+                    </div>
+                    <div class="chat-info">
+                        <div class="chat-name">О себе</div>
+                        <div class="chat-preview">Навыки и контакты</div>
+                    </div>
+                    <div class="chat-meta">
+                        <div class="chat-time">Онлайн</div>
+                        <div class="online-indicator"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Основной контент -->
+        <div class="main-content">
+            <!-- ... заголовок ... -->
+
+            <div class="messages-area">
+                <!-- ... секции ботов, мини-приложений, сайтов ... -->
+
+                <!-- Секция: О себе -->
+                <div class="content-section" id="section-about">
+                    <div class="about-section">
+                        <div class="about-header">
+                            <div class="about-avatar">
+                                <img src="https://raw.githubusercontent.com/dmitrybabs/telegram-portfolio/main/avatar.jpg" alt="Avatar" class="avatar-photo">
+                            </div>
+                            <div class="about-name">
+                                <h3>Марвин Дмитрий</h3>
+                                <div class="about-role">Telegram Developer & Web Designer</div>
+                            </div>
+                        </div>
+                        <div class="about-text">
+                            Привет! Я специализируюсь на разработке Telegram-ботов, Mini Apps и современных веб-сайтов. 
+                            Создаю удобные и красивые решения для автоматизации бизнеса, интеграции AI и повышения вовлечённости пользователей.
+                        </div>
+                        <div class="about-text">
+                            <strong>Технологии:</strong> Python (aiogram, Telethon), JavaScript/TypeScript (React, Vue, Next.js), 
+                            Node.js, PostgreSQL, MongoDB, Redis, Docker, Git.
+                        </div>
+                        <div class="skills-grid">
+                            <div class="skill-item">🤖 Telegram Bots</div>
+                            <div class="skill-item">⚡ Mini Apps</div>
+                            <div class="skill-item">🌐 Web Development</div>
+                            <div class="skill-item">🎨 UI/UX Design</div>
+                            <div class="skill-item">🤖 AI Integration</div>
+                            <div class="skill-item">💾 Database Design</div>
+                        </div>
+                        <div style="margin-top: 25px;">
+                            <a href="https://t.me/yourusername" class="project-link" style="margin-right: 10px;">
+                                📱 Telegram
+                            </a>
+                            <a href="https://github.com/dmitrybabs" class="project-link" style="margin-right: 10px;">
+                                💻 GitHub
+                            </a>
+                            <a href="tel:+79944178040" class="project-link">
+                                📞 +7 (994) 417-80-40
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Создание частиц фона
+        function createParticles() {
+            const container = document.getElementById('particlesBackground');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(particle);
+            }
+
+            // Добавление иконок Telegram
+            const icons = ['✈️', '📱', '💬', '🔔', '📎', '🎵'];
+            for (let i = 0; i < 15; i++) {
+                const icon = document.createElement('div');
+                icon.className = 'telegram-icon';
+                icon.textContent = icons[Math.floor(Math.random() * icons.length)];
+                icon.style.left = Math.random() * 100 + '%';
+                icon.style.animationDuration = (Math.random() * 15 + 20) + 's';
+                icon.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(icon);
+            }
+        }
+
+        // Переключение между чатами
+        function setupChatNavigation() {
+            const chatItems = document.querySelectorAll('.chat-item');
+            const sections = document.querySelectorAll('.content-section');
+            const contentAvatar = document.getElementById('contentAvatar');
+            const contentTitle = document.getElementById('contentTitle');
+            const contentStatus = document.getElementById('contentStatus');
+
+            const chatData = {
+                'bots': {
+                    avatar: '🤖',
+                    title: 'Telegram Боты',
+                    status: '5 проектов • активно разрабатывается',
+                    isEmoji: true
+                },
+                'miniapps': {
+                    avatar: '⚡',
+                    title: 'Mini Apps',
+                    status: '3 проекта • веб-приложения в Telegram',
+                    isEmoji: true
+                },
+                'websites': {
+                    avatar: '🌐',
+                    title: 'Веб-сайты',
+                    status: '8 проектов • лендинги и корпоративные сайты',
+                    isEmoji: true
+                },
+                'about': {
+                    avatar: 'https://raw.githubusercontent.com/dmitrybabs/telegram-portfolio/main/avatar.jpg',
+                    title: 'О себе',
+                    status: 'навыки и контакты',
+                    isEmoji: false
+                }
+            };
+
+            chatItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const chatId = item.dataset.chat;
+
+                    // Обновление активного чата
+                    chatItems.forEach(chat => chat.classList.remove('active'));
+                    item.classList.add('active');
+
+                    // Обновление заголовка
+                    const data = chatData[chatId];
+                    
+                    // Обновляем аватар в зависимости от типа
+                    if (data.isEmoji) {
+                        contentAvatar.innerHTML = data.avatar;
+                    } else {
+                        contentAvatar.innerHTML = `<img src="${data.avatar}" alt="Avatar" class="avatar-photo">`;
+                    }
+                    
+                    contentTitle.textContent = data.title;
+                    contentStatus.textContent = data.status;
+
+                    // Переключение секций с анимацией
+                    sections.forEach(section => {
+                        section.classList.remove('active');
+                    });
+
+                    setTimeout(() => {
+                        document.getElementById(`section-${chatId}`).classList.add('active');
+                        observeProjects();
+                    }, 150);
+                });
+            });
+        }
+
+        // Анимация появления карточек при скролле
+        function observeProjects() {
+            const cards = document.querySelectorAll('.project-card, .about-section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, index * 100);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            cards.forEach(card => {
+                card.classList.remove('visible');
+                observer.observe(card);
+            });
+        }
+
+        // Поиск
+        function setupSearch() {
+            const searchInput = document.querySelector('.search-input');
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+                const cards = document.querySelectorAll('.project-card');
+
+                cards.forEach(card => {
+                    const title = card.querySelector('.project-title').textContent.toLowerCase();
+                    const description = card.querySelector('.project-description').textContent.toLowerCase();
+                    
+                    if (title.includes(query) || description.includes(query)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            setupChatNavigation();
+            setupSearch();
+            observeProjects();
+        });
+    </script>
+</body>
+</html>
