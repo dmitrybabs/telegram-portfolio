@@ -299,8 +299,8 @@
             50% { opacity: 0.7; transform: scale(0.9); }
         }
 
-        /* Кнопка меню для мобильных */
-        .mobile-menu-btn {
+        /* Кнопка меню/назад для мобильных */
+        .mobile-nav-btn {
             display: none;
             position: fixed;
             top: 15px;
@@ -316,29 +316,7 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
-        .menu-icon {
-            font-size: 24px;
-            color: white;
-        }
-
-        /* Кнопка назад для мобильных */
-        .mobile-back-btn {
-            display: none;
-            position: fixed;
-            top: 15px;
-            left: 15px;
-            z-index: 100;
-            width: 40px;
-            height: 40px;
-            background: var(--tg-accent);
-            border-radius: 50%;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .back-icon {
+        .nav-icon {
             font-size: 24px;
             color: white;
         }
@@ -606,6 +584,14 @@
 
         /* Responsive */
         @media (max-width: 768px) {
+            /* Кнопка навигации - всегда показываем */
+            .mobile-nav-btn {
+                display: flex;
+                top: 20px;
+                left: 20px;
+                z-index: 100;
+            }
+            
             /* На мобильных скрываем основное содержимое по умолчанию */
             .main-content {
                 display: none;
@@ -631,37 +617,11 @@
                 left: 0;
                 height: 100vh;
                 z-index: 40;
-                transition: transform 0.3s ease;
             }
             
             /* Скрываем боковую панель когда показываем контент */
             .main-content.active ~ .sidebar {
-                transform: translateX(-100%);
-            }
-            
-            /* Кнопка меню - показываем всегда */
-            .mobile-menu-btn {
-                display: flex;
-                top: 20px;
-                left: 20px;
-                z-index: 60;
-            }
-            
-            /* Скрываем кнопку меню когда открыт контент */
-            .main-content.active ~ .mobile-menu-btn {
                 display: none;
-            }
-            
-            /* Кнопка назад - показываем когда открыт контент */
-            .mobile-back-btn {
-                display: none;
-                top: 20px;
-                left: 20px;
-                z-index: 60;
-            }
-            
-            .main-content.active .mobile-back-btn {
-                display: flex;
             }
             
             /* Заголовок - добавляем отступ для кнопки назад */
@@ -725,8 +685,7 @@
 
         /* Десктоп версия */
         @media (min-width: 769px) {
-            .mobile-menu-btn,
-            .mobile-back-btn {
+            .mobile-nav-btn {
                 display: none !important;
             }
             
@@ -737,6 +696,7 @@
             .sidebar {
                 position: static !important;
                 width: 420px !important;
+                display: flex !important;
             }
         }
 
@@ -756,9 +716,9 @@
 
     <!-- Основной контейнер -->
     <div class="telegram-container">
-        <!-- Кнопка меню для мобильных -->
-        <div class="mobile-menu-btn" id="mobileMenuBtn">
-            <div class="menu-icon">☰</div>
+        <!-- Кнопка навигации для мобильных -->
+        <div class="mobile-nav-btn" id="mobileNavBtn">
+            <div class="nav-icon" id="navIcon">☰</div>
         </div>
 
         <!-- Боковая панель -->
@@ -834,11 +794,6 @@
 
         <!-- Основной контент -->
         <div class="main-content" id="mainContent">
-            <!-- Кнопка назад для мобильных -->
-            <div class="mobile-back-btn" id="mobileBackBtn">
-                <div class="back-icon">←</div>
-            </div>
-
             <div class="content-header">
                 <div class="content-avatar" id="contentAvatar">🤖</div>
                 <div class="content-info">
@@ -1136,8 +1091,9 @@
             const contentTitle = document.getElementById('contentTitle');
             const contentStatus = document.getElementById('contentStatus');
             const mainContent = document.getElementById('mainContent');
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const mobileBackBtn = document.getElementById('mobileBackBtn');
+            const sidebar = document.getElementById('sidebar');
+            const mobileNavBtn = document.getElementById('mobileNavBtn');
+            const navIcon = document.getElementById('navIcon');
 
             const chatData = {
                 'bots': {
@@ -1166,54 +1122,76 @@
                 }
             };
 
+            // Функция для показа контента
+            function showContent(chatId, item) {
+                // Обновление активного чата
+                chatItems.forEach(chat => chat.classList.remove('active'));
+                item.classList.add('active');
+
+                // Обновление заголовка
+                const data = chatData[chatId];
+                
+                if (data.isEmoji) {
+                    contentAvatar.innerHTML = data.avatar;
+                } else {
+                    contentAvatar.innerHTML = `<img src="${data.avatar}" alt="Avatar" class="avatar-photo">`;
+                }
+                
+                contentTitle.textContent = data.title;
+                contentStatus.textContent = data.status;
+
+                // Переключение секций
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                });
+
+                document.getElementById(`section-${chatId}`).classList.add('active');
+
+                // На мобильных: показываем контент, меняем иконку
+                if (window.innerWidth <= 768) {
+                    mainContent.classList.add('active');
+                    navIcon.textContent = '←';
+                }
+            }
+
+            // Обработка кликов по разделам
             chatItems.forEach(item => {
                 item.addEventListener('click', () => {
                     const chatId = item.dataset.chat;
-
-                    // Обновление активного чата
-                    chatItems.forEach(chat => chat.classList.remove('active'));
-                    item.classList.add('active');
-
-                    // Обновление заголовка
-                    const data = chatData[chatId];
-                    
-                    // Обновляем аватар в зависимости от типа
-                    if (data.isEmoji) {
-                        contentAvatar.innerHTML = data.avatar;
-                    } else {
-                        contentAvatar.innerHTML = `<img src="${data.avatar}" alt="Avatar" class="avatar-photo">`;
-                    }
-                    
-                    contentTitle.textContent = data.title;
-                    contentStatus.textContent = data.status;
-
-                    // Переключение секций
-                    sections.forEach(section => {
-                        section.classList.remove('active');
-                    });
-
-                    document.getElementById(`section-${chatId}`).classList.add('active');
-
-                    // На мобильных: показываем контент, скрываем меню
-                    if (window.innerWidth <= 768) {
-                        mainContent.classList.add('active');
-                    }
+                    showContent(chatId, item);
                 });
             });
 
-            // Кнопка меню - показывает боковую панель
-            mobileMenuBtn.addEventListener('click', () => {
+            // Обработка кнопки навигации
+            mobileNavBtn.addEventListener('click', () => {
                 if (window.innerWidth <= 768) {
-                    mainContent.classList.remove('active');
+                    if (mainContent.classList.contains('active')) {
+                        // Если контент открыт - возвращаемся к меню
+                        mainContent.classList.remove('active');
+                        navIcon.textContent = '☰';
+                    } else {
+                        // Если меню открыто - показываем контент первого раздела
+                        const firstChat = document.querySelector('.chat-item.active');
+                        const chatId = firstChat.dataset.chat;
+                        showContent(chatId, firstChat);
+                    }
                 }
             });
 
-            // Кнопка назад - показывает боковую панель
-            mobileBackBtn.addEventListener('click', () => {
-                if (window.innerWidth <= 768) {
-                    mainContent.classList.remove('active');
+            // Инициализация первого раздела
+            const firstChat = document.querySelector('.chat-item.active');
+            if (firstChat) {
+                const chatId = firstChat.dataset.chat;
+                // Только обновляем данные, не показываем контент на мобильных
+                const data = chatData[chatId];
+                if (data.isEmoji) {
+                    contentAvatar.innerHTML = data.avatar;
+                } else {
+                    contentAvatar.innerHTML = `<img src="${data.avatar}" alt="Avatar" class="avatar-photo">`;
                 }
-            });
+                contentTitle.textContent = data.title;
+                contentStatus.textContent = data.status;
+            }
         }
 
         // Поиск
@@ -1245,6 +1223,7 @@
             // На мобильных устройствах скрываем контент по умолчанию
             if (window.innerWidth <= 768) {
                 document.getElementById('mainContent').classList.remove('active');
+                document.getElementById('navIcon').textContent = '☰';
             }
         });
     </script>
