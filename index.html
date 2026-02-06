@@ -114,7 +114,6 @@
             border-right: 1px solid var(--tg-divider);
             display: flex;
             flex-direction: column;
-            transition: transform 0.3s ease;
         }
 
         .sidebar-header {
@@ -127,26 +126,11 @@
             font-size: 22px;
             font-weight: 500;
             margin-bottom: 5px;
-            opacity: 0;
-            animation: fadeInDown 0.6s ease forwards;
         }
 
         .sidebar-header p {
             font-size: 14px;
             color: var(--tg-text-secondary);
-            opacity: 0;
-            animation: fadeInDown 0.6s ease 0.1s forwards;
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         /* Поиск */
@@ -154,13 +138,6 @@
             padding: 10px 20px;
             background: var(--tg-secondary-bg);
             border-bottom: 1px solid var(--tg-divider);
-            opacity: 0;
-            animation: fadeIn 0.6s ease 0.2s forwards;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
         }
 
         .search-input {
@@ -211,24 +188,6 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            opacity: 0;
-            animation: slideInLeft 0.5s ease forwards;
-        }
-
-        .chat-item:nth-child(1) { animation-delay: 0.3s; }
-        .chat-item:nth-child(2) { animation-delay: 0.4s; }
-        .chat-item:nth-child(3) { animation-delay: 0.5s; }
-        .chat-item:nth-child(4) { animation-delay: 0.6s; }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
         }
 
         .chat-item::before {
@@ -355,12 +314,6 @@
             justify-content: center;
             cursor: pointer;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .mobile-menu-btn:hover {
-            background: var(--tg-accent-hover);
-            transform: scale(1.1);
         }
 
         .menu-icon {
@@ -368,20 +321,26 @@
             color: white;
         }
 
-        /* Оверлей для мобильного меню */
-        .sidebar-overlay {
+        /* Кнопка назад для мобильных */
+        .mobile-back-btn {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 98;
+            top: 15px;
+            left: 15px;
+            z-index: 100;
+            width: 40px;
+            height: 40px;
+            background: var(--tg-accent);
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
-        .sidebar-overlay.active {
-            display: block;
+        .back-icon {
+            font-size: 24px;
+            color: white;
         }
 
         /* Основная область контента */
@@ -390,7 +349,6 @@
             display: flex;
             flex-direction: column;
             background: var(--tg-chat-bg);
-            position: relative;
         }
 
         .content-header {
@@ -400,8 +358,6 @@
             display: flex;
             align-items: center;
             gap: 15px;
-            opacity: 0;
-            animation: fadeInDown 0.6s ease 0.3s forwards;
         }
 
         .content-avatar {
@@ -465,13 +421,6 @@
             cursor: pointer;
             position: relative;
             overflow: hidden;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .project-card.visible {
-            opacity: 1;
-            transform: translateY(0);
         }
 
         .project-card::before {
@@ -583,14 +532,6 @@
             background: var(--tg-message-bg);
             border-radius: 12px;
             padding: 25px;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .about-section.visible {
-            opacity: 1;
-            transform: translateY(0);
-            transition: all 0.6s ease;
         }
 
         .about-header {
@@ -665,144 +606,68 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            /* Кнопка меню - всегда показываем */
-            .mobile-menu-btn {
-                display: flex;
-                width: 36px;
-                height: 36px;
-                top: 18px;
-                left: 12px;
-                z-index: 100;
-            }
-            
-            /* Кнопка назад - показываем когда есть выбранный раздел */
-            .mobile-back-btn {
-                display: none;
-                position: fixed;
-                top: 18px;
-                left: 12px;
-                z-index: 100;
-                width: 36px;
-                height: 36px;
-                background: var(--tg-accent);
-                border-radius: 50%;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            }
-            
-            /* Показываем кнопку назад когда контент открыт */
-            .has-selected-chat .mobile-back-btn {
-                display: flex;
-            }
-            
-            /* Скрываем кнопку меню когда контент открыт */
-            .has-selected-chat .mobile-menu-btn {
-                display: none;
-            }
-            
-            .back-icon {
-                font-size: 20px;
-                color: white;
-            }
-            
-            .menu-icon {
-                font-size: 20px;
-            }
-            
-            /* Боковая панель - ИЗМЕНЕНИЕ: открыта по умолчанию на мобильных */
-            .sidebar {
-                position: fixed;
-                left: 0; /* Открыта по умолчанию! */
-                top: 0;
-                z-index: 99;
-                width: 100%;
-                max-width: 350px;
-                height: 100vh;
-                transition: left 0.3s ease;
-                box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
-            }
-            
-            /* Скрываем когда контент выбран */
-            .has-selected-chat .sidebar {
-                left: -100%;
-            }
-            
-            /* Содержимое - сдвигаем когда меню открыто */
+            /* На мобильных скрываем основное содержимое по умолчанию */
             .main-content {
-                transform: translateX(350px); /* ИЗМЕНЕНИЕ: контент скрыт по умолчанию */
+                display: none;
+            }
+            
+            /* Показываем основное содержимое когда выбран раздел */
+            .main-content.active {
+                display: flex;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 50;
+            }
+            
+            /* Боковая панель - видна по умолчанию */
+            .sidebar {
+                width: 100%;
+                max-width: 100%;
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                z-index: 40;
                 transition: transform 0.3s ease;
             }
             
-            /* Возвращаем контент на место когда выбран раздел */
-            .has-selected-chat .main-content {
-                transform: translateX(0);
+            /* Скрываем боковую панель когда показываем контент */
+            .main-content.active ~ .sidebar {
+                transform: translateX(-100%);
             }
             
-            /* Заголовок - добавляем отступ для кнопки назад/меню */
-            .content-header {
-                padding: 15px 20px 15px 60px;
-                min-height: 70px;
-                align-items: center;
-                position: relative;
+            /* Кнопка меню - показываем всегда */
+            .mobile-menu-btn {
+                display: flex;
+                top: 20px;
+                left: 20px;
+                z-index: 60;
             }
             
-            /* Скрываем заголовок по умолчанию на мобильных */
-            .content-header:not(.has-selected-chat) {
+            /* Скрываем кнопку меню когда открыт контент */
+            .main-content.active ~ .mobile-menu-btn {
                 display: none;
             }
             
-            /* Показываем заголовок когда есть выбранный раздел */
-            .has-selected-chat .content-header {
+            /* Кнопка назад - показываем когда открыт контент */
+            .mobile-back-btn {
+                display: none;
+                top: 20px;
+                left: 20px;
+                z-index: 60;
+            }
+            
+            .main-content.active .mobile-back-btn {
                 display: flex;
             }
             
-            /* Уменьшаем аватар на мобильных */
-            .content-avatar {
-                width: 36px;
-                height: 36px;
-                font-size: 16px;
-                flex-shrink: 0;
-            }
-            
-            /* Уменьшаем промежуток */
+            /* Заголовок - добавляем отступ для кнопки назад */
             .content-header {
-                gap: 12px;
-            }
-            
-            /* Обработка длинных текстов */
-            .content-info {
-                overflow: hidden;
-                flex: 1;
-                min-width: 0;
-            }
-            
-            .content-info h2 {
-                font-size: 16px;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                max-width: calc(100vw - 120px);
-            }
-            
-            .content-status {
-                font-size: 12px;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                max-width: calc(100vw - 120px);
-                line-height: 1.4;
-            }
-            
-            /* Оверлей - показываем когда меню открыто */
-            .sidebar-overlay {
-                display: none;
-            }
-            
-            .sidebar:not(.has-selected-chat) ~ .sidebar-overlay {
-                display: block;
-                background: rgba(0, 0, 0, 0.7);
+                padding-left: 70px;
+                padding-right: 20px;
             }
             
             .telegram-container {
@@ -865,20 +730,13 @@
                 display: none !important;
             }
             
-            .sidebar {
-                left: 0 !important;
-            }
-            
             .main-content {
-                transform: translateX(0) !important;
-            }
-            
-            .content-header {
                 display: flex !important;
             }
             
-            .sidebar-overlay {
-                display: none !important;
+            .sidebar {
+                position: static !important;
+                width: 420px !important;
             }
         }
 
@@ -898,6 +756,11 @@
 
     <!-- Основной контейнер -->
     <div class="telegram-container">
+        <!-- Кнопка меню для мобильных -->
+        <div class="mobile-menu-btn" id="mobileMenuBtn">
+            <div class="menu-icon">☰</div>
+        </div>
+
         <!-- Боковая панель -->
         <div class="sidebar" id="sidebar">
             <div class="sidebar-header">
@@ -969,16 +832,8 @@
             </div>
         </div>
 
-        <!-- Оверлей для закрытия меню -->
-        <div class="sidebar-overlay"></div>
-
         <!-- Основной контент -->
         <div class="main-content" id="mainContent">
-            <!-- Кнопка меню для мобильных -->
-            <div class="mobile-menu-btn" id="mobileMenuBtn">
-                <div class="menu-icon">☰</div>
-            </div>
-            
             <!-- Кнопка назад для мобильных -->
             <div class="mobile-back-btn" id="mobileBackBtn">
                 <div class="back-icon">←</div>
@@ -1281,7 +1136,8 @@
             const contentTitle = document.getElementById('contentTitle');
             const contentStatus = document.getElementById('contentStatus');
             const mainContent = document.getElementById('mainContent');
-            const sidebar = document.getElementById('sidebar');
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileBackBtn = document.getElementById('mobileBackBtn');
 
             const chatData = {
                 'bots': {
@@ -1331,43 +1187,32 @@
                     contentTitle.textContent = data.title;
                     contentStatus.textContent = data.status;
 
-                    // Переключение секций с анимацией
+                    // Переключение секций
                     sections.forEach(section => {
                         section.classList.remove('active');
                     });
 
-                    setTimeout(() => {
-                        document.getElementById(`section-${chatId}`).classList.add('active');
-                        observeProjects();
-                    }, 150);
+                    document.getElementById(`section-${chatId}`).classList.add('active');
 
-                    // На мобильных: закрываем боковую панель и показываем контент
+                    // На мобильных: показываем контент, скрываем меню
                     if (window.innerWidth <= 768) {
-                        mainContent.classList.add('has-selected-chat');
+                        mainContent.classList.add('active');
                     }
                 });
             });
-        }
 
-        // Анимация появления карточек при скролле
-        function observeProjects() {
-            const cards = document.querySelectorAll('.project-card, .about-section');
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry, index) => {
-                    if (entry.isIntersecting) {
-                        setTimeout(() => {
-                            entry.target.classList.add('visible');
-                        }, index * 100);
-                    }
-                });
-            }, {
-                threshold: 0.1
+            // Кнопка меню - показывает боковую панель
+            mobileMenuBtn.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    mainContent.classList.remove('active');
+                }
             });
 
-            cards.forEach(card => {
-                card.classList.remove('visible');
-                observer.observe(card);
+            // Кнопка назад - показывает боковую панель
+            mobileBackBtn.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    mainContent.classList.remove('active');
+                }
             });
         }
 
@@ -1391,46 +1236,15 @@
             });
         }
 
-        // Мобильное меню
-        function setupMobileMenu() {
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const mobileBackBtn = document.getElementById('mobileBackBtn');
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.querySelector('.sidebar-overlay');
-            const mainContent = document.getElementById('mainContent');
-            
-            if (mobileMenuBtn && sidebar) {
-                // Открытие меню (кнопка ☰)
-                mobileMenuBtn.addEventListener('click', () => {
-                    mainContent.classList.remove('has-selected-chat');
-                });
-                
-                // Кнопка назад (←) - возвращает к выбору разделов
-                mobileBackBtn.addEventListener('click', () => {
-                    mainContent.classList.remove('has-selected-chat');
-                });
-                
-                // Закрытие меню по клику на оверлей
-                overlay.addEventListener('click', () => {
-                    // Не закрываем при открытии на мобильных
-                    if (window.innerWidth <= 768 && !mainContent.classList.contains('has-selected-chat')) {
-                        return;
-                    }
-                });
-            }
-        }
-
         // Инициализация
         document.addEventListener('DOMContentLoaded', () => {
             createParticles();
             setupChatNavigation();
             setupSearch();
-            observeProjects();
-            setupMobileMenu();
             
-            // На мобильных устройствах показываем боковую панель по умолчанию
+            // На мобильных устройствах скрываем контент по умолчанию
             if (window.innerWidth <= 768) {
-                document.getElementById('mainContent').classList.remove('has-selected-chat');
+                document.getElementById('mainContent').classList.remove('active');
             }
         });
     </script>
