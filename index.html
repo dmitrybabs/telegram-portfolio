@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Основные мета-теги для SEO -->
     <title>Марвин Дмитрий - Портфолио Telegram Разработчика | Боты и Mini Apps</title>
     <meta name="description" content="Портфолио Telegram разработчика: создание ботов на Python, Mini Apps на React/Vue, веб-сайтов. Разработка AI решений, интеграция платежей, автоматизация бизнеса.">
     <meta name="keywords" content="Telegram разработчик, Telegram боты, Mini Apps, Python, aiogram, React, Vue, веб-разработка, портфолио программиста">
@@ -13,7 +11,7 @@
     <!-- Open Graph для соцсетей -->
     <meta property="og:title" content="Марвин Дмитрий - Портфолио Telegram Разработчика">
     <meta property="og:description" content="Создание Telegram ботов, Mini Apps и веб-сайтов. Профессиональная разработка на Python и JavaScript.">
-    <meta property="og:image" content="https://24qme.ru/og-image.jpg">
+    <meta property="og:image" content="https://24qme.ru/avatar.jpg?quality=100">
     <meta property="og:url" content="https://24qme.ru">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Портфолио Telegram Разработчика">
@@ -22,16 +20,10 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Марвин Дмитрий - Портфолио Telegram Разработчика">
     <meta name="twitter:description" content="Профессиональная разработка Telegram ботов и приложений">
-    <meta name="twitter:image" content="https://24qme.ru/twitter-image.jpg">
+    <meta name="twitter:image" content="https://24qme.ru/avatar.jpg?quality=100">
     
     <!-- Каноническая ссылка -->
     <link rel="canonical" href="https://24qme.ru">
-    
-    <!-- Фавиконки -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     
     <!-- Structured Data (JSON-LD) для лучшего отображения в поиске -->
     <script type="application/ld+json">
@@ -88,70 +80,7 @@
             background: var(--tg-bg);
             color: var(--tg-text-primary);
             overflow-x: hidden;
-        }
-
-        /* Анимированный фон с частицами */
-        .particles-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .particle {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            background: var(--tg-accent);
-            border-radius: 50%;
-            opacity: 0.3;
-            animation: float linear infinite;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.3;
-            }
-            90% {
-                opacity: 0.3;
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        /* Иконки Telegram */
-        .telegram-icon {
-            position: absolute;
-            font-size: 24px;
-            opacity: 0.1;
-            animation: floatIcon linear infinite;
-        }
-
-        @keyframes floatIcon {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.1;
-            }
-            90% {
-                opacity: 0.1;
-            }
-            100% {
-                transform: translateY(-100px) rotate(180deg);
-                opacity: 0;
-            }
+            min-height: 100vh;
         }
 
         /* Основной контейнер */
@@ -659,12 +588,10 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            /* Кнопка навигации */
             .mobile-nav-btn {
                 display: flex;
             }
             
-            /* Заголовок в правой части */
             .sidebar-header {
                 padding-left: 70px;
                 padding-right: 20px;
@@ -685,12 +612,10 @@
                 font-size: 13px;
             }
             
-            /* На мобильных скрываем основное содержимое */
             .main-content {
                 display: none;
             }
             
-            /* Показываем основное содержимое когда выбран раздел */
             .main-content.active {
                 display: flex;
                 position: fixed;
@@ -701,7 +626,6 @@
                 z-index: 50;
             }
             
-            /* Боковая панель */
             .sidebar {
                 width: 100%;
                 max-width: 100%;
@@ -712,12 +636,10 @@
                 z-index: 40;
             }
             
-            /* Скрываем боковую панель когда показываем контент */
             .main-content.active ~ .sidebar {
                 display: none;
             }
             
-            /* Заголовок в контенте */
             .content-header {
                 padding-left: 70px;
                 padding-right: 20px;
@@ -728,7 +650,6 @@
                 height: 100vh;
             }
             
-            /* Улучшаем отображение карточек */
             .project-card {
                 padding: 15px;
                 margin-bottom: 10px;
@@ -758,7 +679,6 @@
                 font-size: 13px;
             }
             
-            /* Улучшаем секцию "О себе" */
             .about-header {
                 flex-direction: column;
                 text-align: center;
@@ -774,20 +694,17 @@
                 grid-template-columns: repeat(2, 1fr);
             }
             
-            /* Улучшаем кнопки контактов */
             .project-link {
                 padding: 8px 15px;
                 font-size: 13px;
                 margin-bottom: 5px;
             }
             
-            /* Для мобильных делаем синюю полоску толще */
             .project-card::after {
                 height: 4px;
                 background: var(--tg-accent);
             }
             
-            /* Убираем эффект наведения для мобильных */
             .project-card:hover .project-icon {
                 transform: none;
             }
@@ -837,8 +754,7 @@
     </style>
 </head>
 <body>
-    <!-- Анимированный фон -->
-    <div class="particles-background" id="particlesBackground"></div>
+    <!-- УБРАН АНИМИРОВАННЫЙ ФОН С ЧАСТИЦАМИ -->
 
     <!-- Основной контейнер -->
     <div class="telegram-container">
@@ -906,7 +822,8 @@
 
                 <div class="chat-item" data-chat="about" role="button" aria-label="Перейти к разделу О себе">
                     <div class="chat-avatar">
-                        <img src="avatar.jpg" alt="Аватар Марвин Дмитрий" class="avatar-photo">
+                        <!-- АВАТАРКА С АБСОЛЮТНЫМ ПУТЕМ И ПАРАМЕТРАМИ ДЛЯ КАЧЕСТВА -->
+                        <img src="https://24qme.ru/avatar.jpg?quality=100" alt="Аватар Марвин Дмитрий" class="avatar-photo">
                     </div>
                     <div class="chat-info">
                         <div class="chat-name">О себе</div>
@@ -925,7 +842,7 @@
             <div class="content-header">
                 <div class="content-avatar" id="contentAvatar" aria-hidden="true">🤖</div>
                 <div class="content-info">
-                    <h1 id="contentTitle" style="font-size: 18px; margin: 0;">Telegram Боты</h1>
+                    <h2 id="contentTitle">Telegram Боты</h2>
                     <div class="content-status" id="contentStatus">5 проектов • активно разрабатывается</div>
                 </div>
             </div>
@@ -935,9 +852,9 @@
                 <div class="content-section active" id="section-bots">
                     <div class="project-card" data-project="1">
                         <div class="project-header">
-                            <div class="project-icon" aria-hidden="true">🎯</div>
+                            <div class="project-icon">🎯</div>
                             <div>
-                                <h3 class="project-title">AI Ассистент</h3>
+                                <div class="project-title">AI Ассистент</div>
                                 <div class="project-type">Telegram Bot</div>
                             </div>
                         </div>
@@ -957,9 +874,9 @@
 
                     <div class="project-card" data-project="2">
                         <div class="project-header">
-                            <div class="project-icon" aria-hidden="true">📊</div>
+                            <div class="project-icon">📊</div>
                             <div>
-                                <h3 class="project-title">Аналитика подписок</h3>
+                                <div class="project-title">Аналитика подписок</div>
                                 <div class="project-type">Telegram Bot</div>
                             </div>
                         </div>
@@ -979,9 +896,9 @@
 
                     <div class="project-card" data-project="3">
                         <div class="project-header">
-                            <div class="project-icon" aria-hidden="true">🛒</div>
+                            <div class="project-icon">🛒</div>
                             <div>
-                                <h3 class="project-title">Магазин в Telegram</h3>
+                                <div class="project-title">Магазин в Telegram</div>
                                 <div class="project-type">Telegram Bot</div>
                             </div>
                         </div>
@@ -1004,9 +921,9 @@
                 <div class="content-section" id="section-miniapps">
                     <div class="project-card" data-project="4">
                         <div class="project-header">
-                            <div class="project-icon" aria-hidden="true">🎮</div>
+                            <div class="project-icon">🎮</div>
                             <div>
-                                <h3 class="project-title">Игра "Викторина"</h3>
+                                <div class="project-title">Игра "Викторина"</div>
                                 <div class="project-type">Telegram Mini App</div>
                             </div>
                         </div>
@@ -1026,9 +943,9 @@
 
                     <div class="project-card" data-project="5">
                         <div class="project-header">
-                            <div class="project-icon" aria-hidden="true">📝</div>
+                            <div class="project-icon">📝</div>
                             <div>
-                                <h3 class="project-title">Планировщик задач</h3>
+                                <div class="project-title">Планировщик задач</div>
                                 <div class="project-type">Telegram Mini App</div>
                             </div>
                         </div>
@@ -1048,9 +965,9 @@
 
                     <div class="project-card" data-project="6">
                         <div class="project-header">
-                            <div class="project-icon" aria-hidden="true">💰</div>
+                            <div class="project-icon">💰</div>
                             <div>
-                                <h3 class="project-title">Крипто-кошелёк</h3>
+                                <div class="project-title">Крипто-кошелёк</div>
                                 <div class="project-type">Telegram Mini App</div>
                             </div>
                         </div>
@@ -1073,9 +990,9 @@
                 <div class="content-section" id="section-websites">
                     <div class="project-card" data-project="7">
                         <div class="project-header">
-                            <div class="project-icon" aria-hidden="true">🏢</div>
+                            <div class="project-icon">🏢</div>
                             <div>
-                                <h3 class="project-title">Корпоративный сайт</h3>
+                                <div class="project-title">Корпоративный сайт</div>
                                 <div class="project-type">Website</div>
                             </div>
                         </div>
@@ -1095,9 +1012,9 @@
 
                     <div class="project-card" data-project="8">
                         <div class="project-header">
-                            <div class="project-icon" aria-hidden="true">🛍️</div>
+                            <div class="project-icon">🛍️</div>
                             <div>
-                                <h3 class="project-title">E-commerce платформа</h3>
+                                <div class="project-title">E-commerce платформа</div>
                                 <div class="project-type">Website</div>
                             </div>
                         </div>
@@ -1117,9 +1034,9 @@
 
                     <div class="project-card" data-project="9">
                         <div class="project-header">
-                            <div class="project-icon" aria-hidden="true">🎨</div>
+                            <div class="project-icon">🎨</div>
                             <div>
-                                <h3 class="project-title">Портфолио дизайнера</h3>
+                                <div class="project-title">Портфолио дизайнера</div>
                                 <div class="project-type">Website</div>
                             </div>
                         </div>
@@ -1143,7 +1060,8 @@
                     <div class="about-section">
                         <div class="about-header">
                             <div class="about-avatar">
-                                <img src="avatar.jpg" alt="Фото Марвин Дмитрий - Telegram разработчик" class="avatar-photo">
+                                <!-- АВАТАРКА С АБСОЛЮТНЫМ ПУТЕМ И ПАРАМЕТРАМИ ДЛЯ КАЧЕСТВА -->
+                                <img src="https://24qme.ru/avatar.jpg?quality=100" alt="Фото Марвин Дмитрий - Telegram разработчик" class="avatar-photo">
                             </div>
                             <div class="about-name">
                                 <h2>Марвин Дмитрий</h2>
@@ -1184,267 +1102,137 @@
     </div>
 
     <script>
-        // Создание частиц фона
-        function createParticles() {
-            const container = document.getElementById('particlesBackground');
-            const particleCount = 50;
-
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
-                particle.style.animationDelay = Math.random() * 5 + 's';
-                container.appendChild(particle);
-            }
-
-            // Добавление иконок Telegram
-            const icons = ['✈️', '📱', '💬', '🔔', '📎', '🎵'];
-            for (let i = 0; i < 15; i++) {
-                const icon = document.createElement('div');
-                icon.className = 'telegram-icon';
-                icon.textContent = icons[Math.floor(Math.random() * icons.length)];
-                icon.style.left = Math.random() * 100 + '%';
-                icon.style.animationDuration = (Math.random() * 15 + 20) + 's';
-                icon.style.animationDelay = Math.random() * 5 + 's';
-                container.appendChild(icon);
-            }
-        }
-
-        // Переключение между чатами
-        function setupChatNavigation() {
-            const chatItems = document.querySelectorAll('.chat-item');
-            const sections = document.querySelectorAll('.content-section');
-            const contentAvatar = document.getElementById('contentAvatar');
-            const contentTitle = document.getElementById('contentTitle');
-            const contentStatus = document.getElementById('contentStatus');
-            const mainContent = document.getElementById('mainContent');
-            const sidebar = document.getElementById('sidebar');
-            const mobileNavBtn = document.getElementById('mobileNavBtn');
-            const navIcon = document.getElementById('navIcon');
-
-            const chatData = {
-                'bots': {
-                    avatar: '🤖',
-                    title: 'Telegram Боты',
-                    status: '5 проектов • активно разрабатывается',
-                    isEmoji: true
-                },
-                'miniapps': {
-                    avatar: '⚡',
-                    title: 'Mini Apps',
-                    status: '3 проекта • веб-приложения в Telegram',
-                    isEmoji: true
-                },
-                'websites': {
-                    avatar: '🌐',
-                    title: 'Веб-сайты',
-                    status: '8 проектов • лендинги и корпоративные сайты',
-                    isEmoji: true
-                },
-                'about': {
-                    avatar: 'avatar.jpg',
-                    title: 'О себе',
-                    status: 'навыки и контакты',
-                    isEmoji: false
-                }
-            };
-
-            // Функция для показа контента
-            function showContent(chatId, item) {
-                // Обновление активного чата
-                chatItems.forEach(chat => chat.classList.remove('active'));
-                item.classList.add('active');
-
-                // Обновление заголовка
-                const data = chatData[chatId];
-                
-                if (data.isEmoji) {
-                    contentAvatar.innerHTML = data.avatar;
-                } else {
-                    contentAvatar.innerHTML = `<img src="${data.avatar}" alt="Аватар" class="avatar-photo">`;
-                }
-                
-                contentTitle.textContent = data.title;
-                contentStatus.textContent = data.status;
-
-                // Переключение секций
-                sections.forEach(section => {
-                    section.classList.remove('active');
-                });
-
-                document.getElementById(`section-${chatId}`).classList.add('active');
-
-                // Сбрасываем активные проекты
-                document.querySelectorAll('.project-card.active-mobile').forEach(card => {
-                    card.classList.remove('active-mobile');
-                });
-
-                // Обновляем URL в браузере (без перезагрузки страницы)
-                history.pushState({chatId: chatId}, data.title, `/#${chatId}`);
-
-                // На мобильных: показываем контент, меняем иконку
-                if (window.innerWidth <= 768) {
-                    mainContent.classList.add('active');
-                    navIcon.textContent = '←';
-                }
-            }
-
-            // Обработка кликов по разделам
-            chatItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    const chatId = item.dataset.chat;
-                    showContent(chatId, item);
-                });
-            });
-
-            // Обработка кнопки навигации
-            mobileNavBtn.addEventListener('click', () => {
-                if (window.innerWidth <= 768) {
-                    if (mainContent.classList.contains('active')) {
-                        // Если контент открыт - возвращаемся к меню
-                        mainContent.classList.remove('active');
-                        navIcon.textContent = '☰';
-                    } else {
-                        // Если меню открыто - показываем контент первого раздела
-                        const firstChat = document.querySelector('.chat-item.active');
-                        const chatId = firstChat.dataset.chat;
-                        showContent(chatId, firstChat);
-                    }
-                }
-            });
-
-            // Обработка истории браузера
-            window.addEventListener('popstate', (event) => {
-                if (event.state && event.state.chatId) {
-                    const chatItem = document.querySelector(`[data-chat="${event.state.chatId}"]`);
-                    if (chatItem) {
-                        showContent(event.state.chatId, chatItem);
-                    }
-                }
-            });
-
-            // Обработка якорных ссылок при загрузке
-            function handleInitialHash() {
-                const hash = window.location.hash.substring(1);
-                if (hash && chatData[hash]) {
-                    const chatItem = document.querySelector(`[data-chat="${hash}"]`);
-                    if (chatItem) {
-                        showContent(hash, chatItem);
-                    }
-                }
-            }
-
-            // Инициализация первого раздела
-            handleInitialHash();
-        }
-
-        // Поиск
-        function setupSearch() {
-            const searchInput = document.querySelector('.search-input');
-            searchInput.addEventListener('input', (e) => {
-                const query = e.target.value.toLowerCase();
-                const cards = document.querySelectorAll('.project-card');
-
-                cards.forEach(card => {
-                    const title = card.querySelector('.project-title').textContent.toLowerCase();
-                    const description = card.querySelector('.project-description').textContent.toLowerCase();
-                    
-                    if (title.includes(query) || description.includes(query)) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            });
-        }
-
-        // Обработка карточек проектов
-        function setupProjectCards() {
-            const projectCards = document.querySelectorAll('.project-card');
+        // УПРОЩЕННЫЙ JavaScript без сложных анимаций
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Сайт загружен');
             
-            projectCards.forEach(card => {
-                // На десктопе - наведение
-                card.addEventListener('mouseenter', () => {
-                    if (window.innerWidth > 768) {
-                        projectCards.forEach(c => c.classList.remove('active-mobile'));
-                        card.classList.add('active-mobile');
+            // Переключение между чатами
+            function setupChatNavigation() {
+                const chatItems = document.querySelectorAll('.chat-item');
+                const sections = document.querySelectorAll('.content-section');
+                const contentAvatar = document.getElementById('contentAvatar');
+                const contentTitle = document.getElementById('contentTitle');
+                const contentStatus = document.getElementById('contentStatus');
+                const mainContent = document.getElementById('mainContent');
+                const mobileNavBtn = document.getElementById('mobileNavBtn');
+                const navIcon = document.getElementById('navIcon');
+
+                const chatData = {
+                    'bots': {
+                        avatar: '🤖',
+                        title: 'Telegram Боты',
+                        status: '5 проектов • активно разрабатывается',
+                        isEmoji: true
+                    },
+                    'miniapps': {
+                        avatar: '⚡',
+                        title: 'Mini Apps',
+                        status: '3 проекта • веб-приложения в Telegram',
+                        isEmoji: true
+                    },
+                    'websites': {
+                        avatar: '🌐',
+                        title: 'Веб-сайты',
+                        status: '8 проектов • лендинги и корпоративные сайты',
+                        isEmoji: true
+                    },
+                    'about': {
+                        avatar: 'https://24qme.ru/avatar.jpg?quality=100',
+                        title: 'О себе',
+                        status: 'навыки и контакты',
+                        isEmoji: false
                     }
-                });
-                
-                card.addEventListener('mouseleave', () => {
-                    if (window.innerWidth > 768) {
-                        card.classList.remove('active-mobile');
+                };
+
+                function showContent(chatId, item) {
+                    chatItems.forEach(chat => chat.classList.remove('active'));
+                    item.classList.add('active');
+
+                    const data = chatData[chatId];
+                    
+                    if (data.isEmoji) {
+                        contentAvatar.innerHTML = data.avatar;
+                    } else {
+                        contentAvatar.innerHTML = `<img src="${data.avatar}" alt="Аватар" style="width:42px;height:42px;object-fit:cover;">`;
                     }
-                });
-                
-                // На мобильных - обработка кликов
-                card.addEventListener('click', (e) => {
+                    
+                    contentTitle.textContent = data.title;
+                    contentStatus.textContent = data.status;
+
+                    sections.forEach(section => {
+                        section.classList.remove('active');
+                    });
+
+                    document.getElementById(`section-${chatId}`).classList.add('active');
+
                     if (window.innerWidth <= 768) {
-                        if (e.target.tagName === 'A' || e.target.closest('a')) {
-                            return;
+                        mainContent.classList.add('active');
+                        navIcon.textContent = '←';
+                    }
+                }
+
+                chatItems.forEach(item => {
+                    item.addEventListener('click', () => {
+                        const chatId = item.dataset.chat;
+                        showContent(chatId, item);
+                    });
+                });
+
+                mobileNavBtn.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        if (mainContent.classList.contains('active')) {
+                            mainContent.classList.remove('active');
+                            navIcon.textContent = '☰';
+                        } else {
+                            const firstChat = document.querySelector('.chat-item.active');
+                            const chatId = firstChat.dataset.chat;
+                            showContent(chatId, firstChat);
                         }
-                        
-                        projectCards.forEach(c => c.classList.remove('active-mobile'));
-                        card.classList.add('active-mobile');
-                        
-                        setTimeout(() => {
-                            card.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'center'
-                            });
-                        }, 100);
                     }
                 });
-            });
-            
-            // Обработка скролла для мобильных
-            const messagesArea = document.getElementById('messagesArea');
-            let scrollTimer;
-            
-            messagesArea.addEventListener('scroll', () => {
-                if (window.innerWidth <= 768) {
-                    clearTimeout(scrollTimer);
-                    
-                    scrollTimer = setTimeout(() => {
+            }
+
+            // Поиск
+            function setupSearch() {
+                const searchInput = document.querySelector('.search-input');
+                if (searchInput) {
+                    searchInput.addEventListener('input', (e) => {
+                        const query = e.target.value.toLowerCase();
                         const cards = document.querySelectorAll('.project-card');
-                        const visibleCards = [];
-                        
+
                         cards.forEach(card => {
-                            const rect = card.getBoundingClientRect();
-                            const isVisible = (
-                                rect.top >= 0 &&
-                                rect.left >= 0 &&
-                                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-                                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-                            );
+                            const title = card.querySelector('.project-title').textContent.toLowerCase();
+                            const description = card.querySelector('.project-description').textContent.toLowerCase();
                             
-                            if (isVisible) {
-                                visibleCards.push({
-                                    card: card,
-                                    centerDistance: Math.abs(rect.top + rect.height/2 - window.innerHeight/2)
-                                });
+                            if (title.includes(query) || description.includes(query)) {
+                                card.style.display = 'block';
+                            } else {
+                                card.style.display = 'none';
                             }
                         });
-                        
-                        if (visibleCards.length > 0) {
-                            visibleCards.sort((a, b) => a.centerDistance - b.centerDistance);
-                            cards.forEach(c => c.classList.remove('active-mobile'));
-                            visibleCards[0].card.classList.add('active-mobile');
-                        }
-                    }, 150);
+                    });
                 }
-            });
-        }
+            }
 
-        // Инициализация
-        document.addEventListener('DOMContentLoaded', () => {
-            createParticles();
+            // Обработка карточек проектов (упрощенная)
+            function setupProjectCards() {
+                const projectCards = document.querySelectorAll('.project-card');
+                
+                projectCards.forEach(card => {
+                    card.addEventListener('click', (e) => {
+                        if (window.innerWidth <= 768 && !(e.target.tagName === 'A' || e.target.closest('a'))) {
+                            projectCards.forEach(c => c.classList.remove('active-mobile'));
+                            card.classList.add('active-mobile');
+                        }
+                    });
+                });
+            }
+
+            // Инициализация
             setupChatNavigation();
             setupSearch();
             setupProjectCards();
             
-            // На мобильных устройствах скрываем контент по умолчанию
             if (window.innerWidth <= 768) {
                 document.getElementById('mainContent').classList.remove('active');
                 document.getElementById('navIcon').textContent = '☰';
