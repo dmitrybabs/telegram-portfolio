@@ -1,21 +1,111 @@
 User-agent: *
 Allow: /
-Sitemap: https://24qme.ru/sitemap.xml
 Disallow: /admin/
 Disallow: /private/
+Disallow: /config/
+Disallow: /backup/
+Disallow: /cgi-bin/
+Disallow: /*.php$
+Disallow: /*.sql$
+Disallow: /*.log$
+Disallow: /*.env$
+Disallow: /*?*
+Disallow: /*/feed/
+Disallow: /*/trackback/
+Disallow: /wp-admin/
+Disallow: /wp-includes/
+Disallow: /xmlrpc.php
+Disallow: /search/
+Disallow: /?s=
+Disallow: /tag/
+Disallow: /category/
 
-# Скорость сканирования (опционально)
+# Важно для SPA (одностраничных приложений)
+Allow: /*.js
+Allow: /*.css
+Allow: /*.json
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.gif
+Allow: /*.svg
+Allow: /*.webp
+Allow: /*.woff
+Allow: /*.woff2
+Allow: /*.ttf
+Allow: /*.eot
+
+# Скорость сканирования для всех роботов (предотвращает перегрузку)
 Crawl-delay: 1
 
-# Для поисковых систем
+# Для главных поисковых систем
 User-agent: Googlebot
 Allow: /
 Disallow: /admin/
+Disallow: /private/
+Disallow: /*?*
+Allow: /*.js
+Allow: /*.css
+Crawl-delay: 0.5
+
+User-agent: Googlebot-Image
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.gif
+Allow: /*.svg
+Allow: /*.webp
+Disallow: /admin/
+Disallow: /private/
 
 User-agent: YandexBot
 Allow: /
 Disallow: /admin/
+Disallow: /private/
+Disallow: /*?*
+Crawl-delay: 1
+
+User-agent: YandexImages
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.gif
+Allow: /*.svg
+Allow: /*.webp
+Disallow: /admin/
+Disallow: /private/
 
 User-agent: Bingbot
 Allow: /
 Disallow: /admin/
+Disallow: /private/
+Disallow: /*?*
+Crawl-delay: 1
+
+# Для социальных сетей
+User-agent: FacebookExternalHit
+Allow: /
+Crawl-delay: 2
+
+User-agent: Twitterbot
+Allow: /
+Crawl-delay: 2
+
+# Для агрегаторов и скраперов (ограничиваем)
+User-agent: MJ12bot
+Crawl-delay: 3
+
+User-agent: AhrefsBot
+Crawl-delay: 5
+
+User-agent: SemrushBot
+Crawl-delay: 5
+
+User-agent: DotBot
+Crawl-delay: 3
+
+User-agent: CCBot
+Crawl-delay: 3
+
+# Sitemap (всегда в конце файла)
+Sitemap: https://24qme.ru/sitemap.xml
