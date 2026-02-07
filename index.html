@@ -11,7 +11,7 @@
     <!-- Open Graph для соцсетей -->
     <meta property="og:title" content="Марвин Дмитрий - Портфолио Telegram Разработчика">
     <meta property="og:description" content="Создание Telegram ботов, Mini Apps и веб-сайтов. Профессиональная разработка на Python и JavaScript.">
-    <meta property="og:image" content="https://raw.githubusercontent.com/dmitrybabs/telegram-portfolio/main/avatar.jpg">
+    <meta property="og:image" content="https://24qme.ru/avatar.jpg">
     <meta property="og:url" content="https://24qme.ru">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Портфолио Telegram Разработчика">
@@ -20,7 +20,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Марвин Дмитрий - Портфолио Telegram Разработчика">
     <meta name="twitter:description" content="Профессиональная разработка Telegram ботов и приложений">
-    <meta name="twitter:image" content="https://raw.githubusercontent.com/dmitrybabs/telegram-portfolio/main/avatar.jpg">
+    <meta name="twitter:image" content="https://24qme.ru/avatar.jpg">
     
     <!-- Каноническая ссылка -->
     <link rel="canonical" href="https://24qme.ru">
@@ -42,7 +42,7 @@
             "contactType": "Customer Service"
         },
         "sameAs": [
-            "https://t.me/yourusername",
+            "https://t.me/dmitrybabs",  <!-- ИЗМЕНЕНО НА ВАШ ТЕЛЕГРАМ -->
             "https://github.com/dmitrybabs"
         ]
     }
@@ -56,7 +56,6 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     
-    <!-- Inline CSS для быстрой загрузки -->
     <style>
         * {
             margin: 0;
@@ -82,36 +81,6 @@
             background: var(--tg-bg);
             color: var(--tg-text-primary);
             overflow-x: hidden;
-            min-height: 100vh;
-            position: relative;
-        }
-
-        /* Loading placeholder */
-        .loading-placeholder {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--tg-bg);
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.3s ease;
-        }
-
-        .loader {
-            width: 48px;
-            height: 48px;
-            border: 3px solid var(--tg-accent);
-            border-radius: 50%;
-            border-top-color: transparent;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
         }
 
         /* Основной контейнер */
@@ -123,22 +92,15 @@
             max-width: 1400px;
             margin: 0 auto;
             box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
-            opacity: 0;
-            transition: opacity 0.3s ease;
         }
 
-        .telegram-container.loaded {
-            opacity: 1;
-        }
-
-        /* Боковая панель */
+        /* Боковая панель с чатами */
         .sidebar {
             width: 420px;
             background: var(--tg-secondary-bg);
             border-right: 1px solid var(--tg-divider);
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
         }
 
         .sidebar-header {
@@ -262,34 +224,12 @@
             flex-shrink: 0;
             transition: transform 0.3s ease;
             overflow: hidden;
-            position: relative;
         }
 
         .chat-avatar img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .chat-avatar img.loaded {
-            opacity: 1;
-        }
-
-        .avatar-placeholder {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 20px;
-            background: linear-gradient(135deg, var(--tg-accent), #7ab4e8);
         }
 
         .chat-item:hover .chat-avatar {
@@ -352,7 +292,7 @@
             50% { opacity: 0.7; transform: scale(0.9); }
         }
 
-        /* Кнопка навигации для мобильных */
+        /* Кнопка навигации для мобильных -->
         .mobile-nav-btn {
             display: none;
             position: fixed;
@@ -374,7 +314,7 @@
             color: white;
         }
 
-        /* Основная область контента */
+        <!-- Основная область контента -->
         .main-content {
             flex: 1;
             display: flex;
@@ -403,6 +343,12 @@
             overflow: hidden;
         }
 
+        .content-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         .content-info h2 {
             font-size: 18px;
             font-weight: 500;
@@ -414,7 +360,7 @@
             color: var(--tg-text-secondary);
         }
 
-        /* Область сообщений */
+        <!-- Область сообщений -->
         .messages-area {
             flex: 1;
             overflow-y: auto;
@@ -436,7 +382,7 @@
             border-radius: 3px;
         }
 
-        /* Карточка проекта */
+        <!-- Карточка проекта -->
         .project-card {
             background: var(--tg-message-bg);
             border-radius: 12px;
@@ -448,6 +394,7 @@
             overflow: hidden;
         }
 
+        <!-- Синяя полоска для мобильных - внизу -->
         .project-card::after {
             content: '';
             position: absolute;
@@ -461,12 +408,14 @@
             transform-origin: left;
         }
 
+        <!-- На десктопе при наведении -->
         @media (hover: hover) and (pointer: fine) {
             .project-card:hover::after {
                 transform: scaleX(1);
             }
         }
 
+        <!-- На мобильных при активации -->
         .project-card.active-mobile::after {
             transform: scaleX(1);
         }
@@ -560,7 +509,7 @@
             box-shadow: 0 5px 15px rgba(82, 136, 193, 0.4);
         }
 
-        /* Секция "О себе" */
+        <!-- Секция "О себе" -->
         .about-section {
             background: var(--tg-message-bg);
             border-radius: 12px;
@@ -584,7 +533,18 @@
             justify-content: center;
             font-size: 36px;
             overflow: hidden;
-            position: relative;
+        }
+
+        .about-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .about-name h3 {
@@ -626,7 +586,7 @@
             transform: translateY(-3px);
         }
 
-        /* Responsive */
+        <!-- Responsive -->
         @media (max-width: 768px) {
             .mobile-nav-btn {
                 display: flex;
@@ -756,6 +716,7 @@
             }
         }
 
+        <!-- Десктоп версия -->
         @media (min-width: 769px) {
             .mobile-nav-btn {
                 display: none !important;
@@ -782,6 +743,7 @@
             }
         }
 
+        <!-- Скрыть секции по умолчанию -->
         .content-section {
             display: none;
         }
@@ -792,14 +754,9 @@
     </style>
 </head>
 <body>
-    <!-- Loading -->
-    <div class="loading-placeholder" id="loadingPlaceholder">
-        <div class="loader"></div>
-    </div>
-
     <!-- Основной контейнер -->
-    <div class="telegram-container" id="telegramContainer">
-        <!-- Кнопка навигации -->
+    <div class="telegram-container">
+        <!-- Кнопка навигации для мобильных -->
         <div class="mobile-nav-btn" id="mobileNavBtn">
             <div class="nav-icon" id="navIcon">☰</div>
         </div>
@@ -814,14 +771,17 @@
             </div>
 
             <div class="search-box">
-                <input type="text" class="search-input" placeholder="Поиск проектов..." aria-label="Поиск проектов">
+                <input type="text" class="search-input" placeholder="Поиск проектов..." aria-label="Поиск проектов в портфолио">
             </div>
 
             <div class="chats-list">
-                <div class="chat-item active" data-chat="bots">
+                <div class="chat-item active" data-chat="bots" role="button" aria-label="Перейти к разделу Telegram Боты">
                     <div class="chat-avatar" aria-hidden="true">🤖</div>
                     <div class="chat-info">
-                        <div class="chat-name">Telegram Боты <span class="chat-badge">5</span></div>
+                        <div class="chat-name">
+                            Telegram Боты
+                            <span class="chat-badge">5</span>
+                        </div>
                         <div class="chat-preview">Автоматизация и AI решения</div>
                     </div>
                     <div class="chat-meta">
@@ -830,10 +790,13 @@
                     </div>
                 </div>
 
-                <div class="chat-item" data-chat="miniapps">
+                <div class="chat-item" data-chat="miniapps" role="button" aria-label="Перейти к разделу Mini Apps">
                     <div class="chat-avatar" aria-hidden="true">⚡</div>
                     <div class="chat-info">
-                        <div class="chat-name">Mini Apps <span class="chat-badge">3</span></div>
+                        <div class="chat-name">
+                            Mini Apps
+                            <span class="chat-badge">3</span>
+                        </div>
                         <div class="chat-preview">Веб-приложения в Telegram</div>
                     </div>
                     <div class="chat-meta">
@@ -841,10 +804,13 @@
                     </div>
                 </div>
 
-                <div class="chat-item" data-chat="websites">
+                <div class="chat-item" data-chat="websites" role="button" aria-label="Перейти к разделу Веб-сайты">
                     <div class="chat-avatar" aria-hidden="true">🌐</div>
                     <div class="chat-info">
-                        <div class="chat-name">Веб-сайты <span class="chat-badge">8</span></div>
+                        <div class="chat-name">
+                            Веб-сайты
+                            <span class="chat-badge">8</span>
+                        </div>
                         <div class="chat-preview">Лендинги и корпоративные сайты</div>
                     </div>
                     <div class="chat-meta">
@@ -852,15 +818,10 @@
                     </div>
                 </div>
 
-                <div class="chat-item" data-chat="about">
-                    <!-- АВАТАРКА с GitHub RAW URL -->
+                <div class="chat-item" data-chat="about" role="button" aria-label="Перейти к разделу О себе">
                     <div class="chat-avatar">
-                        <div class="avatar-placeholder">MD</div>
-                        <img src="https://raw.githubusercontent.com/dmitrybabs/telegram-portfolio/main/avatar.jpg" 
-                             alt="Аватар Марвин Дмитрий"
-                             loading="lazy"
-                             onerror="this.style.display='none';"
-                             onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+                        <!-- АВАТАРКА ИЗ КОРНЯ РЕПОЗИТОРИЯ -->
+                        <img src="avatar.jpg" alt="Аватар Марвин Дмитрий" class="avatar-photo">
                     </div>
                     <div class="chat-info">
                         <div class="chat-name">О себе</div>
@@ -877,7 +838,7 @@
         <!-- Основной контент -->
         <div class="main-content" id="mainContent">
             <div class="content-header">
-                <div class="content-avatar" id="contentAvatar">🤖</div>
+                <div class="content-avatar" id="contentAvatar" aria-hidden="true">🤖</div>
                 <div class="content-info">
                     <h2 id="contentTitle">Telegram Боты</h2>
                     <div class="content-status" id="contentStatus">5 проектов • активно разрабатывается</div>
@@ -887,7 +848,7 @@
             <div class="messages-area" id="messagesArea">
                 <!-- Секция: Боты -->
                 <div class="content-section active" id="section-bots">
-                    <div class="project-card">
+                    <div class="project-card" data-project="1">
                         <div class="project-header">
                             <div class="project-icon">🎯</div>
                             <div>
@@ -895,11 +856,200 @@
                                 <div class="project-type">Telegram Bot</div>
                             </div>
                         </div>
-                        <div class="project-description">Интеллектуальный бот с интеграцией GPT-4 для автоматизации ответов, генерации контента и анализа данных.</div>
-                        <div class="project-tags">
-                            <span class="tag">Python</span><span class="tag">aiogram</span><span class="tag">OpenAI API</span><span class="tag">PostgreSQL</span>
+                        <div class="project-description">
+                            Интеллектуальный бот с интеграцией GPT-4 для автоматизации ответов, генерации контента и анализа данных. Поддержка голосовых сообщений и изображений.
                         </div>
-                        <a href="#" class="project-link">Открыть бота →</a>
+                        <div class="project-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">aiogram</span>
+                            <span class="tag">OpenAI API</span>
+                            <span class="tag">PostgreSQL</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            Открыть бота →
+                        </a>
+                    </div>
+
+                    <div class="project-card" data-project="2">
+                        <div class="project-header">
+                            <div class="project-icon">📊</div>
+                            <div>
+                                <div class="project-title">Аналитика подписок</div>
+                                <div class="project-type">Telegram Bot</div>
+                            </div>
+                        </div>
+                        <div class="project-description">
+                            Бот для мониторинга статистики Telegram-каналов: рост подписчиков, вовлечённость, лучшие посты. Автоматические отчёты и графики.
+                        </div>
+                        <div class="project-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Telethon</span>
+                            <span class="tag">Charts.js</span>
+                            <span class="tag">Redis</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            Открыть бота →
+                        </a>
+                    </div>
+
+                    <div class="project-card" data-project="3">
+                        <div class="project-header">
+                            <div class="project-icon">🛒</div>
+                            <div>
+                                <div class="project-title">Магазин в Telegram</div>
+                                <div class="project-type">Telegram Bot</div>
+                            </div>
+                        </div>
+                        <div class="project-description">
+                            Полнофункциональный интернет-магазин с каталогом, корзиной, оплатой через Telegram Payments и системой управления заказами.
+                        </div>
+                        <div class="project-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">aiogram</span>
+                            <span class="tag">SQLite</span>
+                            <span class="tag">Payments API</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            Открыть бота →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Секция: Mini Apps -->
+                <div class="content-section" id="section-miniapps">
+                    <div class="project-card" data-project="4">
+                        <div class="project-header">
+                            <div class="project-icon">🎮</div>
+                            <div>
+                                <div class="project-title">Игра "Викторина"</div>
+                                <div class="project-type">Telegram Mini App</div>
+                            </div>
+                        </div>
+                        <div class="project-description">
+                            Интерактивная викторина с таблицей лидеров, ежедневными вопросами и наградами. Полная интеграция с Telegram Web App API.
+                        </div>
+                        <div class="project-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">TypeScript</span>
+                            <span class="tag">Telegram WebApp</span>
+                            <span class="tag">Firebase</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            Запустить →
+                        </a>
+                    </div>
+
+                    <div class="project-card" data-project="5">
+                        <div class="project-header">
+                            <div class="project-icon">📝</div>
+                            <div>
+                                <div class="project-title">Планировщик задач</div>
+                                <div class="project-type">Telegram Mini App</div>
+                            </div>
+                        </div>
+                        <div class="project-description">
+                            Mini App для управления задачами с календарём, напоминаниями и синхронизацией между устройствами через Telegram Cloud Storage.
+                        </div>
+                        <div class="project-tags">
+                            <span class="tag">Vue.js</span>
+                            <span class="tag">Vite</span>
+                            <span class="tag">Cloud Storage</span>
+                            <span class="tag">PWA</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            Запустить →
+                        </a>
+                    </div>
+
+                    <div class="project-card" data-project="6">
+                        <div class="project-header">
+                            <div class="project-icon">💰</div>
+                            <div>
+                                <div class="project-title">Крипто-кошелёк</div>
+                                <div class="project-type">Telegram Mini App</div>
+                            </div>
+                        </div>
+                        <div class="project-description">
+                            Кошелёк для управления криптовалютой с отслеживанием курсов, историей транзакций и встроенным обменником.
+                        </div>
+                        <div class="project-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">Web3.js</span>
+                            <span class="tag">TON</span>
+                            <span class="tag">Tailwind</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            Запустить →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Секция: Веб-сайты -->
+                <div class="content-section" id="section-websites">
+                    <div class="project-card" data-project="7">
+                        <div class="project-header">
+                            <div class="project-icon">🏢</div>
+                            <div>
+                                <div class="project-title">Корпоративный сайт</div>
+                                <div class="project-type">Website</div>
+                            </div>
+                        </div>
+                        <div class="project-description">
+                            Многостраничный сайт для IT-компании с адаптивным дизайном, анимациями и интеграцией с CRM-системой.
+                        </div>
+                        <div class="project-tags">
+                            <span class="tag">Next.js</span>
+                            <span class="tag">React</span>
+                            <span class="tag">GSAP</span>
+                            <span class="tag">Tailwind CSS</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            Посмотреть →
+                        </a>
+                    </div>
+
+                    <div class="project-card" data-project="8">
+                        <div class="project-header">
+                            <div class="project-icon">🛍️</div>
+                            <div>
+                                <div class="project-title">E-commerce платформа</div>
+                                <div class="project-type">Website</div>
+                            </div>
+                        </div>
+                        <div class="project-description">
+                            Интернет-магазин с каталогом товаров, фильтрами, корзиной, личным кабинетом и интеграцией платёжных систем.
+                        </div>
+                        <div class="project-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">Node.js</span>
+                            <span class="tag">MongoDB</span>
+                            <span class="tag">Stripe</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            Посмотреть →
+                        </a>
+                    </div>
+
+                    <div class="project-card" data-project="9">
+                        <div class="project-header">
+                            <div class="project-icon">🎨</div>
+                            <div>
+                                <div class="project-title">Портфолио дизайнера</div>
+                                <div class="project-type">Website</div>
+                            </div>
+                        </div>
+                        <div class="project-description">
+                            Креативное портфолио с галереей работ, плавными переходами, параллакс-эффектами и тёмной темой.
+                        </div>
+                        <div class="project-tags">
+                            <span class="tag">HTML/CSS</span>
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">Three.js</span>
+                            <span class="tag">GSAP</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            Посмотреть →
+                        </a>
                     </div>
                 </div>
 
@@ -907,31 +1057,42 @@
                 <div class="content-section" id="section-about">
                     <div class="about-section">
                         <div class="about-header">
-                            <!-- АВАТАРКА с GitHub RAW URL -->
                             <div class="about-avatar">
-                                <div class="avatar-placeholder">MD</div>
-                                <img src="https://raw.githubusercontent.com/dmitrybabs/telegram-portfolio/main/avatar.jpg" 
-                                     alt="Фото Марвин Дмитрий"
-                                     loading="lazy"
-                                     onerror="this.style.display='none';"
-                                     onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+                                <!-- АВАТАРКА ИЗ КОРНЯ РЕПОЗИТОРИЯ -->
+                                <img src="avatar.jpg" alt="Фото Марвин Дмитрий - Telegram разработчик" class="avatar-photo">
                             </div>
                             <div class="about-name">
-                                <h3>Марвин Дмитрий</h3>
+                                <h2>Марвин Дмитрий</h2>
                                 <div class="about-role">Telegram Developer & Web Designer</div>
                             </div>
                         </div>
-                        <div class="about-text">Привет! Я специализируюсь на разработке Telegram-ботов, Mini Apps и современных веб-сайтов.</div>
+                        <div class="about-text">
+                            Привет! Я специализируюсь на разработке Telegram-ботов, Mini Apps и современных веб-сайтов. 
+                            Создаю удобные и красивые решения для автоматизации бизнеса, интеграции AI и повышения вовлечённости пользователей.
+                        </div>
+                        <div class="about-text">
+                            <strong>Технологии:</strong> Python (aiogram, Telethon), JavaScript/TypeScript (React, Vue, Next.js), 
+                            Node.js, PostgreSQL, MongoDB, Redis, Docker, Git.
+                        </div>
                         <div class="skills-grid">
                             <div class="skill-item">🤖 Telegram Bots</div>
                             <div class="skill-item">⚡ Mini Apps</div>
                             <div class="skill-item">🌐 Web Development</div>
                             <div class="skill-item">🎨 UI/UX Design</div>
+                            <div class="skill-item">🤖 AI Integration</div>
+                            <div class="skill-item">💾 Database Design</div>
                         </div>
                         <div style="margin-top: 25px;">
-                            <a href="https://t.me/yourusername" class="project-link" style="margin-right: 10px;">📱 Telegram</a>
-                            <a href="https://github.com/dmitrybabs" class="project-link" style="margin-right: 10px;">💻 GitHub</a>
-                            <a href="tel:+79944178040" class="project-link">📞 +7 (994) 417-80-40</a>
+                            <!-- ИЗМЕНЕНО: ваш Telegram @dmitrybabs -->
+                            <a href="https://t.me/dmitrybabs" class="project-link" style="margin-right: 10px;">
+                                📱 Telegram
+                            </a>
+                            <a href="https://github.com/dmitrybabs" class="project-link" style="margin-right: 10px;">
+                                💻 GitHub
+                            </a>
+                            <a href="tel:+79944178040" class="project-link">
+                                📞 +7 (994) 417-80-40
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -940,83 +1101,142 @@
     </div>
 
     <script>
-        // Инициализация
+        // УПРОЩЕННЫЙ JavaScript без сложных анимаций
         document.addEventListener('DOMContentLoaded', function() {
-            // Показываем основной интерфейс
-            setTimeout(() => {
-                const loadingEl = document.getElementById('loadingPlaceholder');
-                const containerEl = document.getElementById('telegramContainer');
-                
-                if (loadingEl) loadingEl.style.opacity = '0';
-                if (containerEl) containerEl.classList.add('loaded');
-                
-                setTimeout(() => {
-                    if (loadingEl) loadingEl.style.display = 'none';
-                }, 300);
-                
-                // Инициализация функционала
-                setupChatNavigation();
-                setupSearch();
-            }, 300);
-        });
-        
-        function setupChatNavigation() {
-            const chatItems = document.querySelectorAll('.chat-item');
-            const sections = document.querySelectorAll('.content-section');
+            console.log('Сайт загружен');
             
-            chatItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    chatItems.forEach(i => i.classList.remove('active'));
-                    sections.forEach(s => s.classList.remove('active'));
+            // Переключение между чатами
+            function setupChatNavigation() {
+                const chatItems = document.querySelectorAll('.chat-item');
+                const sections = document.querySelectorAll('.content-section');
+                const contentAvatar = document.getElementById('contentAvatar');
+                const contentTitle = document.getElementById('contentTitle');
+                const contentStatus = document.getElementById('contentStatus');
+                const mainContent = document.getElementById('mainContent');
+                const mobileNavBtn = document.getElementById('mobileNavBtn');
+                const navIcon = document.getElementById('navIcon');
+
+                const chatData = {
+                    'bots': {
+                        avatar: '🤖',
+                        title: 'Telegram Боты',
+                        status: '5 проектов • активно разрабатывается',
+                        isEmoji: true
+                    },
+                    'miniapps': {
+                        avatar: '⚡',
+                        title: 'Mini Apps',
+                        status: '3 проекта • веб-приложения в Telegram',
+                        isEmoji: true
+                    },
+                    'websites': {
+                        avatar: '🌐',
+                        title: 'Веб-сайты',
+                        status: '8 проектов • лендинги и корпоративные сайты',
+                        isEmoji: true
+                    },
+                    'about': {
+                        avatar: 'avatar.jpg',
+                        title: 'О себе',
+                        status: 'навыки и контакты',
+                        isEmoji: false
+                    }
+                };
+
+                function showContent(chatId, item) {
+                    chatItems.forEach(chat => chat.classList.remove('active'));
+                    item.classList.add('active');
+
+                    const data = chatData[chatId];
                     
-                    this.classList.add('active');
-                    
-                    const chatId = this.dataset.chat;
-                    const targetSection = document.getElementById(`section-${chatId}`);
-                    if (targetSection) {
-                        targetSection.classList.add('active');
+                    if (data.isEmoji) {
+                        contentAvatar.innerHTML = data.avatar;
+                    } else {
+                        contentAvatar.innerHTML = `<img src="${data.avatar}" alt="Аватар" style="width:42px;height:42px;object-fit:cover;">`;
                     }
                     
+                    contentTitle.textContent = data.title;
+                    contentStatus.textContent = data.status;
+
+                    sections.forEach(section => {
+                        section.classList.remove('active');
+                    });
+
+                    document.getElementById(`section-${chatId}`).classList.add('active');
+
                     if (window.innerWidth <= 768) {
-                        const mainContent = document.getElementById('mainContent');
-                        const navIcon = document.getElementById('navIcon');
-                        if (mainContent) mainContent.classList.add('active');
-                        if (navIcon) navIcon.textContent = '←';
+                        mainContent.classList.add('active');
+                        navIcon.textContent = '←';
                     }
+                }
+
+                chatItems.forEach(item => {
+                    item.addEventListener('click', () => {
+                        const chatId = item.dataset.chat;
+                        showContent(chatId, item);
+                    });
                 });
-            });
-            
-            const mobileNavBtn = document.getElementById('mobileNavBtn');
-            if (mobileNavBtn) {
-                mobileNavBtn.addEventListener('click', function() {
+
+                mobileNavBtn.addEventListener('click', () => {
                     if (window.innerWidth <= 768) {
-                        const mainContent = document.getElementById('mainContent');
-                        const navIcon = document.getElementById('navIcon');
-                        if (mainContent && mainContent.classList.contains('active')) {
+                        if (mainContent.classList.contains('active')) {
                             mainContent.classList.remove('active');
-                            if (navIcon) navIcon.textContent = '☰';
+                            navIcon.textContent = '☰';
+                        } else {
+                            const firstChat = document.querySelector('.chat-item.active');
+                            const chatId = firstChat.dataset.chat;
+                            showContent(chatId, firstChat);
                         }
                     }
                 });
             }
-        }
-        
-        function setupSearch() {
-            const searchInput = document.querySelector('.search-input');
-            if (searchInput) {
-                searchInput.addEventListener('input', function(e) {
-                    const query = e.target.value.toLowerCase();
-                    const cards = document.querySelectorAll('.project-card');
-                    
-                    cards.forEach(card => {
-                        const title = card.querySelector('.project-title')?.textContent.toLowerCase() || '';
-                        const desc = card.querySelector('.project-description')?.textContent.toLowerCase() || '';
-                        
-                        card.style.display = (title.includes(query) || desc.includes(query)) ? 'block' : 'none';
+
+            // Поиск
+            function setupSearch() {
+                const searchInput = document.querySelector('.search-input');
+                if (searchInput) {
+                    searchInput.addEventListener('input', (e) => {
+                        const query = e.target.value.toLowerCase();
+                        const cards = document.querySelectorAll('.project-card');
+
+                        cards.forEach(card => {
+                            const title = card.querySelector('.project-title').textContent.toLowerCase();
+                            const description = card.querySelector('.project-description').textContent.toLowerCase();
+                            
+                            if (title.includes(query) || description.includes(query)) {
+                                card.style.display = 'block';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        });
+                    });
+                }
+            }
+
+            // Обработка карточек проектов (упрощенная)
+            function setupProjectCards() {
+                const projectCards = document.querySelectorAll('.project-card');
+                
+                projectCards.forEach(card => {
+                    card.addEventListener('click', (e) => {
+                        if (window.innerWidth <= 768 && !(e.target.tagName === 'A' || e.target.closest('a'))) {
+                            projectCards.forEach(c => c.classList.remove('active-mobile'));
+                            card.classList.add('active-mobile');
+                        }
                     });
                 });
             }
-        }
+
+            // Инициализация
+            setupChatNavigation();
+            setupSearch();
+            setupProjectCards();
+            
+            if (window.innerWidth <= 768) {
+                document.getElementById('mainContent').classList.remove('active');
+                document.getElementById('navIcon').textContent = '☰';
+            }
+        });
     </script>
 </body>
 </html>
